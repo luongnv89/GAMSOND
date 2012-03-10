@@ -1,0 +1,2 @@
+- Tìm hiểu giải thuật di truyền áp dụng cho các bài toán mã hóa số thực, mã hóa đa giá trị.
+
