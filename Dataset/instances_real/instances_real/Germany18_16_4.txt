@@ -1,0 +1,32 @@
+DIMENSIONS
+18 sommetsG2
+16 sommetsG1
+4 dem
+
+SOMMETS
+0  Berlin  C  52.52  13.38
+1  Hamburg  C  53.55  10
+2  Munchen  C  48.14  11.58
+3  Koln  C  50.95  6.97
+4  Frankfurt  C  50.12  8.68
+5  Dortmund  C  51.51  7.48
+6  Stuttgart  C  48.79  9.19
+7  Essen  T  51.47  7
+8  Dusseldorf  C  51.24  6.79
+9  Bremen  C  53.08  8.81
+10  Hannover  C  52.4  9.73
+11  Duisburg  C  51.43  6.75
+12  Nurnberg  C  49.45  11.05
+13  Leipzig  C  51.35  12.4
+14  Dresden  C  51.05  13.74
+15  Bochum  T  51.48  7.2
+16  Wuppertal  C  51.26  7.18
+17  Bielefeld  C  52.03  8.53
+
+DEMANDES
+0 1 ( 0 13 1 ) ( 0 9 1 )
+0 2 ( 0 13 2 ) ( 0 14 2 )
+0 13 ( 0 1 10 13 ) ( 0 12 2 13 )
+0 14 ( 0 10 14 ) ( 0 2 14 )
+
+EOF

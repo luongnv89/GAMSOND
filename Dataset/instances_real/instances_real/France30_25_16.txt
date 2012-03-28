@@ -1,0 +1,56 @@
+DIMENSIONS
+30 sommetsG2
+25 sommetsG1
+16 dem
+
+SOMMETS
+0  Paris  C  48.86  2.34
+1  Marseille  C  43.31  5.37
+2  Lyon  C  45.76  4.83
+3  Toulouse  C  43.62  1.45
+4  Nice  C  43.7  7.27
+5  Nantes  T  47.23  -1.57
+6  Strasbourg  C  48.58  7.76
+7  Montpellier  C  43.61  3.87
+8  Bordeaux  C  44.84  -0.58
+9  Rennes  C  48.11  -1.68
+10  Le-havre  C  49.5  0.12
+11  Reims  T  49.25  4.03
+12  Lille  C  50.64  3.07
+13  Saint-etienne  C  45.43  4.39
+14  Toulon  C  43.13  5.92
+15  Grenoble  C  45.19  5.72
+16  Angers  C  47.48  -0.54
+17  Brest  C  48.39  -4.5
+18  Le-mans  C  48  0.2
+19  Dijon  C  47.33  5.03
+20  Aix-en-provence  C  43.53  5.44
+21  Clermont-ferrand  C  45.78  3.08
+22  Nimes  C  43.84  4.35
+23  Amiens  T  49.9  2.3
+24  Tours  C  47.38  0.69
+25  Limoges  T  45.83  1.25
+26  Metz  C  49.12  6.18
+27  Villeurbanne  T  45.77  4.88
+28  Besancon  C  47.24  6.02
+29  Caen  C  49.19  -0.36
+
+DEMANDES
+0 1 ( 0 13 1 ) ( 0 21 1 )
+0 2 ( 0 13 2 ) ( 0 19 2 )
+0 3 ( 0 24 3 ) ( 0 18 3 )
+0 9 ( 0 18 9 ) ( 0 16 9 )
+0 10 ( 0 12 10 ) ( 0 16 10 )
+0 12 ( 0 10 12 ) ( 0 18 12 )
+0 16 ( 0 18 16 ) ( 0 24 16 )
+0 18 ( 0 24 18 ) ( 0 10 29 18 )
+0 19 ( 0 2 19 ) ( 0 13 19 )
+0 24 ( 0 16 24 ) ( 0 29 24 )
+0 29 ( 0 10 29 ) ( 0 18 29 )
+1 2 ( 1 20 2 ) ( 1 14 2 )
+1 4 ( 1 14 4 ) ( 1 22 20 4 )
+1 7 ( 1 14 7 ) ( 1 20 14 22 7 )
+1 14 ( 1 20 14 ) ( 1 22 14 )
+1 20 ( 1 14 20 ) ( 1 4 20 )
+
+EOF

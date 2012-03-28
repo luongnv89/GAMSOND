@@ -1,0 +1,104 @@
+DIMENSIONS
+80 sommetsG2
+75 sommetsG1
+14 dem
+
+SOMMETS
+0  Paris  C  48.86  2.34
+1  Marseille  C  43.31  5.37
+2  Lyon  C  45.76  4.83
+3  Toulouse  C  43.62  1.45
+4  Nice  C  43.7  7.27
+5  Nantes  C  47.23  -1.57
+6  Strasbourg  C  48.58  7.76
+7  Montpellier  C  43.61  3.87
+8  Bordeaux  C  44.84  -0.58
+9  Rennes  C  48.11  -1.68
+10  Le-havre  C  49.5  0.12
+11  Reims  C  49.25  4.03
+12  Lille  C  50.64  3.07
+13  Saint-etienne  C  45.43  4.39
+14  Toulon  C  43.13  5.92
+15  Grenoble  C  45.19  5.72
+16  Angers  C  47.48  -0.54
+17  Brest  C  48.39  -4.5
+18  Le-mans  C  48  0.2
+19  Dijon  C  47.33  5.03
+20  Aix-en-provence  C  43.53  5.44
+21  Clermont-ferrand  C  45.78  3.08
+22  Nimes  C  43.84  4.35
+23  Amiens  C  49.9  2.3
+24  Tours  C  47.38  0.69
+25  Limoges  C  45.83  1.25
+26  Metz  C  49.12  6.18
+27  Villeurbanne  C  45.77  4.88
+28  Besancon  C  47.24  6.02
+29  Caen  C  49.19  -0.36
+30  Orleans  C  47.9  1.9
+31  Mulhouse  T  47.76  7.34
+32  Perpignan  C  42.7  2.89
+33  Boulogne-billancourt  C  48.83  2.24
+34  Rouen  C  49.44  1.08
+35  Nancy  C  48.69  6.17
+36  Roubaix  C  50.69  3.17
+37  Tourcoing  C  50.72  3.16
+38  Argenteuil  C  48.94  2.24
+39  Avignon  C  43.96  4.81
+40  Montreuil  C  48.86  2.43
+41  Nanterre  C  48.9  2.2
+42  Poitiers  C  46.58  0.34
+43  Saint-denis  C  48.94  2.36
+44  Versailles  C  48.81  2.14
+45  Creteil  C  48.79  2.45
+46  Pau  C  43.3  -0.39
+47  La-rochelle  C  46.17  -1.18
+48  Colombes  C  48.93  2.25
+49  Asnieres-sur-seine  C  48.91  2.29
+50  Calais  C  50.95  1.86
+51  Aulnay-sous-bois  C  48.96  2.49
+52  Vitry-sur-seine  C  48.79  2.39
+53  Rueil-malmaison  C  48.89  2.17
+54  Champigny-sur-marne  C  48.82  2.51
+55  Beziers  C  43.35  3.21
+56  Saint-maur-des-fosses  C  48.8  2.49
+57  Dunkerque  C  51.04  2.34
+58  Antibes  C  43.6  7.12
+59  Saint-nazaire  C  47.28  -2.22
+60  Courbevoie  C  48.9  2.25
+61  Bourges  C  47.08  2.39
+62  Colmar  T  48.08  7.36
+63  Valence  T  44.94  4.89
+64  Cannes  C  43.56  7.02
+65  Villeneuve-d'ascq  C  50.62  3.14
+66  Quimper  C  47.99  -4.11
+67  Merignac  T  44.87  -0.65
+68  Antony  C  48.76  2.3
+69  La-seyne-sur-mer  C  43.11  5.87
+70  Aubervillers  C  48.92  2.38
+71  Troyes  C  48.3  4.08
+72  Lorient  T  47.74  -3.37
+73  Neuilly-sur-seine  C  48.89  2.27
+74  Drancy  C  48.94  2.46
+75  Saint-quentin  C  49.85  3.28
+76  Pessac  C  44.8  -0.66
+77  Chambery  C  45.58  5.91
+78  Venissieux  C  45.69  4.86
+79  Levallois-perret  C  48.9  2.29
+
+DEMANDES
+0 1 ( 0 52 1 ) ( 0 45 1 )
+0 2 ( 0 45 2 ) ( 0 56 2 )
+0 11 ( 0 51 11 ) ( 0 54 11 )
+0 12 ( 0 51 12 ) ( 0 49 12 )
+0 23 ( 0 43 23 ) ( 0 73 38 23 )
+0 30 ( 0 68 30 ) ( 0 52 30 )
+0 33 ( 0 73 33 ) ( 0 79 33 )
+0 38 ( 0 79 38 ) ( 0 48 38 )
+0 40 ( 0 70 40 ) ( 0 49 40 )
+0 41 ( 0 60 41 ) ( 0 49 73 41 )
+0 43 ( 0 70 43 ) ( 0 49 43 )
+0 44 ( 0 73 44 ) ( 0 49 44 )
+0 45 ( 0 40 45 ) ( 0 56 45 )
+0 48 ( 0 60 48 ) ( 0 38 48 )
+
+EOF

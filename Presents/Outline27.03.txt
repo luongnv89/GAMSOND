@@ -1,0 +1,9 @@
+Outline bài trình bày:
+1. Tổng quan về mạng quang
+2. Tổng quan về bài toán mạng chịu lỗi
+3. Phát biểu bài toán
+4. Các nghiên cứu trước đó
+5. Hướng giải quyết
+	- Mô tả dữ liệu mẫu.
+	
+	
