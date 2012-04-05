@@ -1,0 +1,107 @@
+
+/* kb.css from kb.tex (TeX4ht, 2008-11-15 20:01:00) */
+    <!--
+  .blink1{
+  font-size:10pt;
+  font-family:verdana,arial,helvetica;
+  color:#0000FF;
+  text-decoration: none;
+  }
+  a{
+  color:#0000FF;
+  text-decoration: none;
+  }
+  li{
+  font-size:10pt;
+  font-family:verdana,arial,helvetica;
+  color:#000000;
+  text-decoration: none;
+  }
+  /* Different kind of paragraph class */
+  p{
+  }
+  .titleText {
+  font-size:24pt;
+  font-family:verdana,arial,helvetica;
+  color:#000000;
+  text-decoration: none;
+  }
+  .headerText {
+  font-size:18pt;
+  font-family:verdana,arial,helvetica;
+  color:#000000;
+  text-decoration: none;
+  }
+  .sectionText{
+  font-size:12pt;
+  font-family:verdana,arial,helvetica;
+  }
+  .bodyText {
+  font-size:10pt;
+  font-family:verdana,arial,helvetica;
+  color:#000000;
+  text-decoration: none;
+  }
+  /* For Table of Contents */
+  span.partToc{
+  font-weight: italic;
+  font-size:18pt;
+  font-family:verdana,arial,helvetica;
+
+  color:#000000;
+  text-decoration: none;
+  }
+    span.chapterToc{
+  font-size:14pt;
+  font-family:verdana,arial,helvetica;
+  color:#000000;
+  text-decoration: none;
+  }
+  span.sectionToc{
+  font-weight: bold;
+  font-size:10pt;
+  font-family:verdana,arial,helvetica;
+  color:#000000;
+  text-decoration: none;
+  }
+  span.subsectionToc{
+  font-size:10pt;
+  font-family:verdana,arial,helvetica;
+  color:#000000;
+  text-decoration: none;
+  }
+  /* For customized Span */
+  span.sectionText{
+  font-size:18pt;
+  font-family:verdana,arial,helvetica;
+  color:#000000;
+  text-decoration: none;
+  }
+  span.subsectionText{
+  font-size:13pt;
+  font-family:verdana,arial,helvetica;
+  color:#000000;
+  text-decoration: underline;
+  }
+  span.subsubsectionText{
+  font-size:10pt;
+  font-weight: bold;
+  font-family:verdana,arial,helvetica;
+  color:#000000;
+  text-decoration: none;
+  }
+  /* Code Tag*/
+  code  {
+  display:block;
+  font:normal normal 100% 'Lucida Grande', Verdana, Arial, Sans-serif;
+  font-size:10px;
+  color:#000000;
+
+  overflow:hidden;
+  background:#f0f0f0 url(code_bg.gif)left top no-repeat;
+  padding:20px 20px 10px;
+  margin:1px 1px;
+  max-height:none;
+  border-bottom:1px solid #eaeaea;
+}
+
