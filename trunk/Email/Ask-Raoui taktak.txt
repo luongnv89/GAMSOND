@@ -1,0 +1,16 @@
+Cảm ơn rất nhiều về sự giúp đỡ của bạn.
+Với những câu trả lời đầy đủ, rõ ràng và nhanh chóng của bạn, tôi đã hiểu được khá rõ vấn đề mà bạn đã giải quyết.
+Tôi đã xây dựng được một vài ý tưởng để giải quyết vấn đề này bằng cách áp dụng giải thuật di truyền. 
+Tôi sẽ trình bày cho bạn, và rất biết ơn nếu bạn có thể dành thời gian xem xét và góp ý cho ý tưởng của tôi.
+Tôi sẽ trình bày theo trình tự của mô hình giải thuật di truyền:
+1. Mã hóa:
+Tôi sử dụng mã hóa nhị phân.
+Mỗi gen là 1 đường đi trên vật lý
+Mỗi cá thể gồm 2 nhiễm sắc thể:
+	- 1 nhiễm sắc thể thể hiện tập đường đi chính (đường đi mặc định) tương ứng của các yêu cầu.
+	- Nhiễm sắc thể còn lại thể hiện tập đường đi dự phòng (đường đi sẽ được sử dụng khi đường đi chính có lỗi) tương ứng của các yêu cầu.
+Chi tiết về cách mã hóa bạn vui lòng xem trong file ảnh đính kèm.
+2. Khởi tạo quần thể.
+Quần thể của tôi sẽ gồm có 
+
+Tuy nhiên , vẫn còn một số vấn đề nữa tôi muốn hỏi thêm, trước khi có một dàn ý đầy đủ áp dụng GA giải quyết vấn đề này. Tôi
