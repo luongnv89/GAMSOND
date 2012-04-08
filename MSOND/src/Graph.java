@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 
 public class Graph {
@@ -9,6 +10,8 @@ public class Graph {
 	int node = 0;
 	int req = 0;
 	Request listReq[];
+	double listNode[][];
+	ArrayList<Integer> listNodeUsed = new ArrayList<Integer>();
 	
 	public Graph() {
 		
@@ -16,7 +19,6 @@ public class Graph {
 	
 	public Graph(String url) {
 		File file = new File(url);
-		double listNode[][];
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(file));
 			String s = in.readLine();
@@ -77,7 +79,7 @@ public class Graph {
 					graph1[listReq[i].getBk().get(j + 1)][listReq[i].getBk().get(j)] ++;
 				}
 			}
-			System.out.print("");
+ 			System.out.print("");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -94,9 +96,47 @@ public class Graph {
 	public void copyGraph(Graph g) {
 		node = g.node;
 		graph = new double[node][node];
+		graph1 = new int[node][node];
+		listReq = new Request[g.listReq.length];
+		listNode = new double[node][2];
+		
 		for (int i = 0; i < node; i++)
-			for (int j = 0; j < node; j++) {
+			for (int j = 0; j < node; j++)
 				graph[i][j] = g.graph[i][j];
+		for (int i = 0; i < node; i++)
+			for (int j = 0; j < node; j++)
+				graph1[i][j] = g.graph1[i][j];
+		for (int i = 0; i < g.listReq.length; i++) {
+			listReq[i] = new Request();
+			listReq[i].bk = new ArrayList<Integer>();
+			listReq[i].wk = new ArrayList<Integer>();
+/*			for (int j = 0; j < g.listReq[i].bk.size(); j++) {
+				Integer tmp = new Integer(g.listReq[i].bk.get(j).intValue());
+				listReq[i].bk.add(tmp);
 			}
+			for (int j = 0; j < g.listReq[i].wk.size(); j++) {
+				Integer tmp = new Integer(g.listReq[i].wk.get(j).intValue());
+				listReq[i].wk.add(tmp);
+			}*/
+			for (int j = 0; j < g.listReq[i].bk.size(); j++)
+				listReq[i].bk.add(g.listReq[i].bk.get(j));
+			for (int j = 0; j < g.listReq[i].wk.size(); j++)
+				listReq[i].wk.add(g.listReq[i].wk.get(j));
+			listReq[i].s = g.listReq[i].s;
+			listReq[i].t = g.listReq[i].t;
+		}
+		listNode = g.listNode.clone();
+	}
+	
+	public double sumCost(Graph tmpG, Graph g) {
+		double tmp = 0;
+		
+		for (int i = 0; i < g.node; i++)
+			for (int j = i + 1; j < g.node; j++) {
+				if (tmpG.graph1[i][j] != 0)
+					tmp += g.graph[i][j];
+			}
+		return tmp;
 	}
 }
+
