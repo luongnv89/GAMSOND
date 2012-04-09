@@ -17,6 +17,62 @@ public class Graph {
 		
 	}
 	
+	public double[][] getGraph() {
+		return graph;
+	}
+
+	public void setGraph(double[][] graph) {
+		this.graph = graph;
+	}
+
+	public int[][] getGraph1() {
+		return graph1;
+	}
+
+	public void setGraph1(int[][] graph1) {
+		this.graph1 = graph1;
+	}
+
+	public int getNode() {
+		return node;
+	}
+
+	public void setNode(int node) {
+		this.node = node;
+	}
+
+	public int getReq() {
+		return req;
+	}
+
+	public void setReq(int req) {
+		this.req = req;
+	}
+
+	public Request[] getListReq() {
+		return listReq;
+	}
+
+	public void setListReq(Request[] listReq) {
+		this.listReq = listReq;
+	}
+
+	public double[][] getListNode() {
+		return listNode;
+	}
+
+	public void setListNode(double[][] listNode) {
+		this.listNode = listNode;
+	}
+
+	public ArrayList<Integer> getListNodeUsed() {
+		return listNodeUsed;
+	}
+
+	public void setListNodeUsed(ArrayList<Integer> listNodeUsed) {
+		this.listNodeUsed = listNodeUsed;
+	}
+
 	public Graph(String url) {
 		File file = new File(url);
 		try {
