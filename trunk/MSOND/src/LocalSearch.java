@@ -82,11 +82,11 @@ public class LocalSearch {
 		for (int k = 0; k < 10; k++) {
 			for (int i = 0; i < tmpG.listReq.length; i++) {
 				tmpG.listNodeUsed.clear();
-				for (int j = 0; j < tmpG.listReq[i].getWk().size(); j++) {
-					tmpG.listNodeUsed.add(tmpG.listReq[i].wk.get(j));
+				for (int j = 0; j < g.listReq[i].getWk().size(); j++) {
+					tmpG.listNodeUsed.add(g.listReq[i].wk.get(j));
 				}
-				for (int j = 1; j < tmpG.listReq[i].getBk().size() - 1; j++) {
-					tmpG.listNodeUsed.add(tmpG.listReq[i].bk.get(j));
+				for (int j = 1; j < g.listReq[i].getBk().size() - 1; j++) {
+					tmpG.listNodeUsed.add(g.listReq[i].bk.get(j));
 				}
 				
 				for (int j = 0; j < tmpG.listReq[i].getWk().size() - 1; j++) {
@@ -112,10 +112,10 @@ public class LocalSearch {
 				}
 				
 				tmpArrInt = new ArrayList<Integer>();
-				tmpArrInt.add(tmpG.listReq[i].s);
-				for (int j = 0; j < tmpG.listReq[i].getWk().size() - 1; j++) {
-					tmpArrInt.addAll(Dijkstra(tmpG.listReq[i].getWk().get(j), tmpG.listReq[i].getWk().get(j+1), tmpG).getPath());
-					tmpArrInt.add(tmpG.listReq[i].getWk().get(j+1));
+				tmpArrInt.add(g.listReq[i].s);
+				for (int j = 0; j < g.listReq[i].getWk().size() - 1; j++) {
+					tmpArrInt.addAll(Dijkstra(g.listReq[i].getWk().get(j), g.listReq[i].getWk().get(j+1), tmpG).getPath());
+					tmpArrInt.add(g.listReq[i].getWk().get(j+1));
 				}
 				tmpG.listReq[i].wk.clear();
 				tmpG.listReq[i].wk.addAll(tmpArrInt);
@@ -127,10 +127,10 @@ public class LocalSearch {
 				}
 				
 				tmpArrInt = new ArrayList<Integer>();
-				tmpArrInt.add(tmpG.listReq[i].s);
-				for (int j = 0; j < tmpG.listReq[i].getBk().size() - 1; j++) {
-					tmpArrInt.addAll(Dijkstra(tmpG.listReq[i].getBk().get(j), tmpG.listReq[i].getBk().get(j+1), tmpG).getPath());
-					tmpArrInt.add(tmpG.listReq[i].getBk().get(j+1));
+				tmpArrInt.add(g.listReq[i].s);
+				for (int j = 0; j < g.listReq[i].getBk().size() - 1; j++) {
+					tmpArrInt.addAll(Dijkstra(g.listReq[i].getBk().get(j), g.listReq[i].getBk().get(j+1), tmpG).getPath());
+					tmpArrInt.add(g.listReq[i].getBk().get(j+1));
 				}
 				tmpG.listReq[i].bk.clear();
 				tmpG.listReq[i].bk.addAll(tmpArrInt);
