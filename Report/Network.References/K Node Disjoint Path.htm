@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)http://www.shannarasite.org/kb/kbse48.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>K Node Disjoint Path</title> 
+ 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html --> 
+<meta name="src" content="kb.tex"> 
+<meta name="date" content="2008-11-15 20:01:00"> 
+<link rel="stylesheet" type="text/css" href="./K Node Disjoint Path_files/kb.css"> 
+<link type="text/css" rel="stylesheet" href="data:text/css,"></head><body>
+   <!--l. 658--><div class="crosslinks"><p class="noindent">[<a href="http://www.shannarasite.org/kb/kbse49.html">next</a>] [<a href="http://www.shannarasite.org/kb/kbse47.html">prev</a>] [<a href="http://www.shannarasite.org/kb/kbse47.html#tailkbse47.html">prev-tail</a>] [<a href="http://www.shannarasite.org/kb/kbse48.html#tailkbse48.html">tail</a>] [<a href="http://www.shannarasite.org/kb/kbch13.html#kbse48.html">up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">4.13.8   </span> <a id="x73-730004.13.8"></a>K Node Disjoint Path</h3>
+<!--l. 660--><p class="noindent"><span class="sectionText">Definition</span></p><p> Given an undirected graph, G. There exists k distinct paths, labelled as
+<span class="cmmi-10">&lt; s</span><sub><span class="cmmi-7">i</span></sub> <span class="cmsy-10">- </span><span class="cmmi-10">t</span><sub><span class="cmmi-7">i</span></sub> <span class="cmmi-10">&gt;,</span>1 <span class="cmsy-10">&#8804; </span><span class="cmmi-10">i </span><span class="cmsy-10">&#8804; </span><span class="cmmi-10">k</span>, where any of two paths do not share nodes. </p>
+<!--l. 665--><p class="indent">   <span class="sectionText">Polynomial Certifier</span></p><p>
+     </p><ul class="itemize1">
+     <li class="itemize">Input: Given an undirected graph, G = (V,E).
+     </li>
+     <li class="itemize">Certificate: k distinct paths, labelled as <span class="cmmi-10">&lt; s</span><sub><span class="cmmi-7">i</span></sub> <span class="cmsy-10">- </span><span class="cmmi-10">t</span><sub><span class="cmmi-7">i</span></sub> <span class="cmmi-10">&gt;,</span>1 <span class="cmsy-10">&#8804; </span><span class="cmmi-10">i </span><span class="cmsy-10">&#8804; </span><span class="cmmi-10">k</span>.
+     </li>
+     <li class="itemize">Certifier: When traversing a path, we remove nodes from set V. If there
+     exists a node in another path such that the node was already removed.
+     Then, we know that there are two paths that share common nodes, and
+     vice versa.
+     </li>
+     <li class="itemize">Running Time: The summation of traversing k-path. <span class="cmmi-10">O</span>(<span class="cmmi-10">n</span><span class="cmsy-10">&#8901;</span><span class="cmmi-10">k</span>) if all k paths
+     have every nodes in V.</li></ul>
+<!--l. 673--><p class="noindent"></p>
+<!--l. 675--><p class="indent">   <span class="sectionText">Reduction from 3-SAT by encoding with Gadget</span></p><p> The construction (reduction from 3SAT) can be formed as following:
+<br class="newline">Assume we have n literals, and m clauses. First, let <span class="cmmi-10">k </span>= <span class="cmmi-10">m </span>+ <span class="cmmi-10">n</span>. With each literal
+<span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub><span class="cmmi-10">,</span>1 <span class="cmsy-10">&#8804; </span><span class="cmmi-10">i </span><span class="cmsy-10">&#8804; </span><span class="cmmi-10">n</span>, we have a pair of vertices, <span class="cmmi-10">s</span><sub><span class="cmmi-7">i</span></sub> and <span class="cmmi-10">t</span><sub><span class="cmmi-7">i</span></sub> that forms two disjoint path of
+length m connecting them, where m is the number of clauses. One path is called the
+original path, and the other is the complement path. For each <span class="cmmi-10">&lt; s</span><sub><span class="cmmi-7">i</span></sub> <span class="cmsy-10">- </span><span class="cmmi-10">t</span><sub><span class="cmmi-7">i</span></sub> <span class="cmmi-10">&gt;</span>-path, we
+can go either path, which exactly corresponds to setting xi to true or false
+respectively. (Going through original path, means <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub> <span class="cmsy-10">&#8801; </span><span class="cmmi-10">T</span>; going through the
+complement path means <span class="overline"><span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub></span> <span class="cmsy-10">&#8801; </span><span class="cmmi-10">T</span> <span class="cmsy-10">&#8656;&#8658;</span> <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub> <span class="cmsy-10">&#8801; </span><span class="cmmi-10">F</span>.)
+<!--l. 683--></p><p class="indent">   For each clause <span class="cmmi-10">C</span><sub><span class="cmmi-7">j</span></sub> = <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub> <span class="cmsy-10">&#8744; </span><span class="cmmi-10">x</span><sub><span class="cmmi-7">j</span></sub> <span class="cmsy-10">&#8744; </span><span class="cmmi-10">x</span><sub><span class="cmmi-7">k</span></sub><span class="cmmi-10">,</span>1 <span class="cmsy-10">&#8804; </span><span class="cmmi-10">j </span><span class="cmsy-10">&#8804; </span><span class="cmmi-10">m</span>. We create another pair of
+vertices <span class="cmmi-10">s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub><span class="cmmi-10">,t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub>. We add an edge from <span class="cmmi-10">s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub> to a node on the complement
+path of <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub>, if the <span class="cmmi-10">i</span><sup><span class="cmmi-7">th</span></sup> literal is <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub>, and an edge from this node back to <span class="cmmi-10">t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub>.
+Logically, if <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub> is true, then (<span class="cmmi-10">s</span><sub><span class="cmmi-7">i</span></sub><span class="cmmi-10">,t</span><sub><span class="cmmi-7">i</span></sub>)-path would take the original path, leaving
+the complement path free for <span class="cmmi-10">&lt; s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub> <span class="cmsy-10">- </span><span class="cmmi-10">t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub> <span class="cmmi-10">&gt;</span>-path. Similarly, if the <span class="cmmi-10">i</span><sup><span class="cmmi-7">th</span></sup>
+literal is <span class="overline"><span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub></span>, we add an edge from <span class="cmmi-10">s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub> to a node on the original path of
+<span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub>, and an edge from this node back to <span class="cmmi-10">t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub>. Logically, if <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub> is false, then
+<span class="cmmi-10">&lt; s</span><sub><span class="cmmi-7">i</span></sub> <span class="cmsy-10">- </span><span class="cmmi-10">t</span><sub><span class="cmmi-7">i</span></sub> <span class="cmmi-10">&gt;</span>-path would take the complement path, leaving the original path free for
+<span class="cmmi-10">&lt; s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub> <span class="cmsy-10">- </span><span class="cmmi-10">t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub> <span class="cmmi-10">&gt;</span>-path. Please note that if <span class="cmmi-10">&lt; s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub> <span class="cmsy-10">- </span><span class="cmmi-10">t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub> <span class="cmmi-10">&gt;</span>-path has more than one
+choices (that means more than one literal is true), then we can pick any path to go
+through.
+<!--l. 692--></p><p class="indent">   In the case of two clauses <span class="cmmi-10">C</span><sub><span class="cmmi-7">a</span></sub> and <span class="cmmi-10">C</span><sub><span class="cmmi-7">b</span></sub> both using the same literal <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub>, then we
+connect <span class="cmmi-10">s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">a</span></sub>, <span class="cmmi-10">s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">b</span></sub> to a distinct node on the path of literal <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub> (Now we are consider
+they are both on original path or both on complement path). For instance, if <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub> is
+true, then the original path for (<span class="cmmi-10">s</span><sub><span class="cmmi-7">i</span></sub><span class="cmmi-10">,t</span><sub><span class="cmmi-7">i</span></sub>) is used, and that enables both the clauses
+
+<span class="cmmi-10">C</span><sub><span class="cmmi-7">a</span></sub><span class="cmmi-10">,C</span><sub><span class="cmmi-7">b</span></sub> to be taking the complement path, <span class="cmmi-10">&lt; s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">a</span></sub> <span class="cmsy-10">- </span><span class="cmmi-10">t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">a</span></sub> <span class="cmmi-10">&gt;,&lt; s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">b</span></sub> <span class="cmsy-10">- </span><span class="cmmi-10">t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">b</span></sub> <span class="cmmi-10">&gt;</span>,
+respectively. Hence, any <span class="cmmi-10">&lt; s</span><sub><span class="cmmi-7">i</span></sub> <span class="cmsy-10">-</span><span class="cmmi-10">t</span><sub><span class="cmmi-7">i</span></sub> <span class="cmmi-10">&gt;</span>-path would have at most m intermediate node, if
+all m clauses contain <span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub> literal.
+<!--l. 698--></p><p class="indent">   Obviously this construction can be done in polynomial time, in terms of n
+variable and m clauses.
+<!--l. 700--></p><p class="indent">   </p><hr class="figure"><div class="figure"><table class="figure"><tbody><tr class="figure"><td class="figure">
+
+<a id="x73-730019"></a>
+
+
+<!--l. 701--><p class="noindent"><img src="./K Node Disjoint Path_files/kb142x.png" alt="PIC" class="graphics" width="517.5pt" height="659.60136pt"><!--tex4ht:graphics  
+name="kb142x.png" src="np.12"  
+-->
+<br> </p><table class="caption"><tbody><tr style="vertical-align:baseline;" class="caption"><td class="id">Figure&nbsp;4.13.9: </td><td class="content">Gadget Graph corresponding for &#934; = (<span class="cmmi-10">x</span><sub><span class="cmr-7">1</span></sub> <span class="cmsy-10">&#8744;¬</span><span class="cmmi-10">x</span><sub><span class="cmr-7">2</span></sub> <span class="cmsy-10">&#8744; </span><span class="cmmi-10">x</span><sub><span class="cmr-7">3</span></sub>) <span class="cmsy-10">&#8743; </span>(<span class="cmmi-10">x</span><sub><span class="cmr-7">1</span></sub> <span class="cmsy-10">&#8744;</span>
+<span class="cmmi-10">x</span><sub><span class="cmr-7">2</span></sub> <span class="cmsy-10">&#8744;¬</span><span class="cmmi-10">x</span><sub><span class="cmr-7">3</span></sub>)</td></tr></tbody></table><!--tex4ht:label?: x73-730019 -->
+
+<!--l. 703--><p class="indent">   </p></td></tr></tbody></table></div><hr class="endfigure">
+   <div class="newtheorem">
+<!--l. 705--><p class="noindent"><span class="head">
+<a id="x73-73002r1"></a>
+<i><b>Claim </b></i><span class="cmbx-10">4.13.8.1.</span>  </span><span class="cmti-10">3-SAT </span><span class="cmsy-10">&#8804;</span><sub><span class="cmmi-7">p</span></sub> <span class="cmti-10">K-Node-Disjoint-Path</span>
+<br class="newline">&#934; <span class="cmti-10">is satisfiable if and only if the graph has node disjoint path of size k</span>
+   </p></div>
+<!--l. 710--><p class="indent">   &#934; is satisfiable <span class="cmsy-10">&#8658; </span>the graph has node disjoint path of size k
+<!--l. 711--></p><p class="indent">
+   </p><div class="proof">
+<!--l. 712--><p class="indent">   <span class="head">
+<span class="cmti-10">Proof.</span> </span>If we have a satisfying assignment, then we can choose one literal in each
+claus to be true. If the literal is true, then the corresponding (<span class="cmmi-10">s</span><sub><span class="cmmi-7">i</span></sub><span class="cmmi-10">,t</span><sub><span class="cmmi-7">i</span></sub>)-path will
+take the original path, leaving the complement path free for (<span class="cmmi-10">s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub><span class="cmmi-10">,t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub>)-path
+(for  this  clause).  In  contrast,  if  the  literal  is  false,  then  the  corresponding
+(<span class="cmmi-10">s</span><sub><span class="cmmi-7">i</span></sub><span class="cmmi-10">,t</span><sub><span class="cmmi-7">i</span></sub>)-path will take the complement path, leaving the original path free for
+(<span class="cmmi-10">s</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub><span class="cmmi-10">,t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub>)-path  (for  this  clause).  Thus,  the  total  number  of  disjoint  path
+in graph is <span class="cmmi-10">n </span>+ <span class="cmmi-10">m </span>= <span class="cmmi-10">k</span>. Thus, satisfied the condition of Node-Disjoint Path
+Problem.                                                                                         __
+   </p></div>
+<!--l. 720--><p class="indent">   The graph has node disjoint path of size k <span class="cmsy-10">&#8658; </span>&#934; is satisfiable.
+<!--l. 721--></p><p class="indent">
+   </p><div class="proof">
+<!--l. 722--><p class="indent">   <span class="head">
+<span class="cmti-10">Proof.</span> </span>If the graph has a k node-disjoint-path, we distinguish the literal path
+(<span class="cmmi-10">x</span><sub><span class="cmmi-7">i</span></sub><span class="cmmi-10">,t</span><sub><span class="cmmi-7">i</span></sub>), and the clause path (<span class="cmmi-10">x</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub><span class="cmmi-10">,t</span><sub><span class="cmmi-7">n</span><span class="cmr-7">+</span><span class="cmmi-7">j</span></sub>). To get the satisfying assignment, we
+declare that each literal in the graph is true, then the each clause will have at
+least one free path (either original or complement). Thus, the assignment is also
+satisfied.                                                                                          __
+   </p></div>
+<!--l. 726--><p class="indent">   </p>
+
+   <!--l. 729--><div class="crosslinks"><p class="noindent">[<a href="http://www.shannarasite.org/kb/kbse49.html">next</a>] [<a href="http://www.shannarasite.org/kb/kbse47.html">prev</a>] [<a href="http://www.shannarasite.org/kb/kbse47.html#tailkbse47.html">prev-tail</a>] [<a href="./K Node Disjoint Path_files/K Node Disjoint Path.htm">front</a>] [<a href="http://www.shannarasite.org/kb/kbch13.html#kbse48.html">up</a>] </p></div>
+<!--l. 729--><p class="indent">   <a id="tailkbse48.html"></a>  
+ 
+</p></body></html>
