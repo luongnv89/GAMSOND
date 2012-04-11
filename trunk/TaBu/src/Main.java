@@ -1,7 +1,7 @@
 import java.sql.Time;
 
 public class Main {
-	@SuppressWarnings("deprecation")
+//	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		Time time1, time2; 
 		String s = "polska/";
