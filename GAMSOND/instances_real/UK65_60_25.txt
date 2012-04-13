@@ -1,0 +1,100 @@
+DIMENSIONS
+65 sommetsG2
+60 sommetsG1
+25 dem
+
+SOMMETS
+0  London  C  51.52  -0.1
+1  Glasgow  C  55.87  -4.27
+2  Birmingham  C  52.48  -1.91
+3  Liverpool  C  53.42  -2.99
+4  Edinburgh  C  55.95  -3.22
+5  Sheffield  C  53.39  -1.48
+6  Leeds  C  53.81  -1.55
+7  Bristol  C  51.46  -2.6
+8  Manchester  C  53.48  -2.25
+9  Leicester  C  52.64  -1.13
+10  Kingston-upon-hull  C  53.75  -0.36
+11  Coventry  C  52.42  -1.5
+12  Bradford  C  53.8  -1.75
+13  Cardiff  C  51.48  -3.18
+14  Nottingham  C  52.97  -1.18
+15  Stoke-on-trent  C  53.01  -2.19
+16  Wolverhampton  C  52.59  -2.15
+17  Plymouth  C  50.38  -4.16
+18  Belfast  C  54.6  -5.93
+19  Derby  C  52.92  -1.5
+20  Reading  C  51.45  -0.98
+21  Southampton  C  50.91  -1.41
+22  Dudley  C  52.5  -2.08
+23  Aberdeen  C  57.15  -2.1
+24  Newcastle-upon-tyne  C  55  -1.6
+25  Preston  T  53.76  -2.73
+26  Luton  C  51.9  -0.44
+27  Sunderland  C  54.91  -1.39
+28  Portsmouth  C  50.81  -1.09
+29  Walsall  C  52.6  -1.97
+30  Norwich  C  52.65  1.28
+31  Swansea  C  51.63  -3.96
+32  Bournemouth  C  50.73  -1.88
+33  Southend-on-sea  C  51.55  0.71
+34  Swindon  C  51.57  -1.78
+35  Dundee  C  56.47  -3
+36  Blackpool  C  53.82  -3.06
+37  Poole  C  50.72  -1.98
+38  Peterborough  C  52.59  -0.25
+39  West-bromwich  C  52.53  -1.97
+40  Middlesbrough  C  54.58  -1.23
+41  Oldbury-smethwick  C  52.51  -2.03
+42  Huddersfield  C  53.66  -1.8
+43  Bolton  C  53.58  -2.43
+44  Stockport  C  53.42  -2.17
+45  Ipswich  C  52.07  1.14
+46  Motherwell  C  55.79  -4
+47  York  C  53.96  -1.11
+48  Oxford  C  51.76  -1.26
+49  Rotherham  C  53.44  -1.35
+50  Brighton  T  50.83  -0.15
+51  Gloucester  T  51.86  -2.24
+52  Watford  C  51.66  -0.4
+53  Newport  C  51.59  -3
+54  Slough  T  51.52  -0.61
+55  Basildon  C  51.57  0.46
+56  Sutton-coldfield  C  52.56  -1.84
+57  Blackburn  C  53.75  -2.49
+58  Saint-helens  C  53.46  -2.75
+59  Oldham  T  53.55  -2.12
+60  Woking-byfleet  C  51.32  -0.57
+61  Northampton  C  52.24  -0.9
+62  Chelmsford  C  51.73  0.47
+63  Colchester  C  51.88  0.9
+64  Cambridge  C  52.21  0.13
+
+DEMANDES
+0 1 ( 0 9 1 ) ( 0 26 19 1 )
+0 2 ( 0 52 2 ) ( 0 26 2 )
+0 3 ( 0 56 3 ) ( 0 26 3 )
+0 5 ( 0 14 5 ) ( 0 61 5 )
+0 6 ( 0 5 6 ) ( 0 9 6 )
+0 7 ( 0 20 7 ) ( 0 34 7 )
+0 8 ( 0 61 8 ) ( 0 26 8 )
+0 9 ( 0 26 9 ) ( 0 52 9 )
+0 10 ( 0 26 10 ) ( 0 52 10 )
+0 11 ( 0 26 11 ) ( 0 20 11 )
+0 14 ( 0 26 14 ) ( 0 9 14 )
+0 19 ( 0 61 19 ) ( 0 9 19 )
+0 20 ( 0 60 20 ) ( 0 52 20 )
+0 21 ( 0 60 21 ) ( 0 20 21 )
+0 26 ( 0 60 26 ) ( 0 64 26 )
+0 28 ( 0 52 28 ) ( 0 26 28 )
+0 33 ( 0 55 33 ) ( 0 62 33 )
+0 38 ( 0 55 38 ) ( 0 26 61 38 )
+0 48 ( 0 20 48 ) ( 0 61 48 )
+0 52 ( 0 26 52 ) ( 0 60 52 )
+0 55 ( 0 52 55 ) ( 0 64 55 )
+0 60 ( 0 20 60 ) ( 0 64 60 )
+0 62 ( 0 55 62 ) ( 0 45 62 )
+0 63 ( 0 62 63 ) ( 0 52 63 )
+0 64 ( 0 52 64 ) ( 0 26 64 )
+
+EOF
