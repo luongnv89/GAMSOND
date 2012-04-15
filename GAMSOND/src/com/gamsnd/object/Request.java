@@ -6,8 +6,8 @@ public class Request {
 	int id;
 	private int oNode;
 	private int dNode;
-	private ArrayList<Integer> path1;
-	private ArrayList<Integer> path2;
+	private ArrayList<Node> path1;
+	private ArrayList<Node> path2;
 	public int getId() {
 		return id;
 	}
@@ -26,20 +26,20 @@ public class Request {
 	public void setdNode(int dNode) {
 		this.dNode = dNode;
 	}
-	public ArrayList<Integer> getPath1() {
+	public ArrayList<Node> getPath1() {
 		return path1;
 	}
-	public void setPath1(ArrayList<Integer> path1) {
+	public void setPath1(ArrayList<Node> path1) {
 		this.path1 = path1;
 	}
-	public ArrayList<Integer> getPath2() {
+	public ArrayList<Node> getPath2() {
 		return path2;
 	}
-	public void setPath2(ArrayList<Integer> path2) {
+	public void setPath2(ArrayList<Node> path2) {
 		this.path2 = path2;
 	}
-	public Request(int id, int oNode, int dNode, ArrayList<Integer> path1,
-			ArrayList<Integer> path2) {
+	public Request(int id, int oNode, int dNode, ArrayList<Node> path1,
+			ArrayList<Node> path2) {
 		super();
 		this.id = id;
 		this.oNode = oNode;

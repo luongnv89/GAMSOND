@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * */
 public class Gen {
 	private int id;	//id of path 
-	private int requestID;
+//	private int requestID;
 	private ArrayList<Edge> listEdge;
 	public int getId() {
 		return id; 
@@ -16,22 +16,22 @@ public class Gen {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getRequestID() {
-		return requestID;
-	}
-	public void setRequestID(int requestID) {
-		this.requestID = requestID;
-	}
+//	public int getRequestID() {
+//		return requestID;
+//	}
+//	public void setRequestID(int requestID) {
+//		this.requestID = requestID;
+//	}
 	public ArrayList<Edge> getListEdge() {
 		return listEdge;
 	}
 	public void setListEdge(ArrayList<Edge> listEdge) {
 		this.listEdge = listEdge;
 	}
-	public Gen(int id, int requestID, ArrayList<Edge> listEdge) {
+	public Gen(int id, ArrayList<Edge> listEdge) {
 		super();
 		this.id = id;
-		this.requestID = requestID;
+//		this.requestID = requestID;
 		this.listEdge = listEdge;
 	}
 		
