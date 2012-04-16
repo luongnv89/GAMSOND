@@ -1,9 +1,15 @@
 
 public class Main {
 	public static void main(String[] args) {
-		Graph graph = new Graph("instances_alea\\a8_6_15.txt");
+		Graph graph;
 		LocalSearch tmp = new LocalSearch();
+		double tmpDouble;
 		
-		tmp.run1(graph);
+		graph = new Graph("instances_alea\\a12_10_15.txt");
+		tmpDouble = 0.0;
+		for (int i = 0; i < 50; i++) {
+			tmpDouble += tmp.run(graph);
+		}
+		System.out.println(tmpDouble/50);
 	}
 }
