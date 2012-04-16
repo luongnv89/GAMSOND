@@ -372,11 +372,13 @@ public class LocalSearch {
 		return tmpG;
 	}
 	
-	public void run1(Graph g) {
+	public double run1(Graph g) {
 		int edgeMatrix[][];
 		Graph tmpGraph;
 		Graph lastGraph;
 		Edge listEdge[];
+		Graph bestGraph = new Graph();
+		double bestCost = 9999999999999999.0;
 		
 		edgeMatrix = new int[g.node][g.node];
 		for (int k = 0; k < g.listReq.length; k++) {
@@ -404,12 +406,18 @@ public class LocalSearch {
 		}
 		
 		lastGraph = searchRandom(g, g);
+		bestGraph.copyGraph(lastGraph);
+		bestCost = bestGraph.sumCost(bestGraph, g);
 		for (int i = 0; i < 10; i++) {
 			tmpGraph = new Graph();
 			tmpGraph = searchRandom(lastGraph, g);
-			System.out.println(tmpGraph.sumCost(tmpGraph, g));
+			if (bestCost > tmpGraph.sumCost(tmpGraph, g)) {
+				bestGraph.copyGraph(tmpGraph);
+				bestCost = tmpGraph.sumCost(tmpGraph, g);
+			}
 			lastGraph.copyGraph(tmpGraph);
 		}
+		return bestCost;
 	}
 	
 	public void sort(Edge list[]) {
