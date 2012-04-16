@@ -142,7 +142,7 @@ public class LocalSearch {
 		return tmpG;
 	}
 	
-	public void run(Graph g) {
+	public double run(Graph g) {
 		ArrayList<Graph> arrGraph = new ArrayList<Graph>();
 		double tmpCost = 99999999999999.0;
 		Graph tmpGraph = new Graph();
@@ -152,8 +152,8 @@ public class LocalSearch {
 		lastGraph = search(g, g);
 		arrGraph.add(lastGraph);
 		for (int i = 0; i < 10; i++) {
-			tmpGraph = search(lastGraph, g);
-			System.out.println(tmpGraph.sumCost(tmpGraph, g));
+			tmpGraph = searchRandom(lastGraph, g);
+//			System.out.println(tmpGraph.sumCost(tmpGraph, g));
 			if (tmpGraph.sumCost(tmpGraph, g) < tmpCost) {
 				tmpCost = tmpGraph.sumCost(tmpGraph, g);
 				arrGraph.add(tmpGraph);
@@ -171,6 +171,7 @@ public class LocalSearch {
 				}
 			}
 		}
+		return tmpCost;
 	}
 	
 	public void changeGraph(Graph tmpG, Graph g) {
