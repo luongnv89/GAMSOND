@@ -12,6 +12,7 @@ public class Graph {
 	Request listReq[];
 	double listNode[][];
 	ArrayList<Integer> listNodeUsed = new ArrayList<Integer>();
+	ArrayList<Integer> listEdge = new ArrayList<Integer>();
 	
 	public Graph() {
 		
@@ -182,6 +183,9 @@ public class Graph {
 			listReq[i].t = g.listReq[i].t;
 		}
 		listNode = g.listNode.clone();
+		for (int i = 0; i < g.listEdge.size(); i++) {
+			listEdge.add(g.listEdge.get(i));
+		}
 	}
 	
 	public double sumCost(Graph tmpG, Graph g) {
