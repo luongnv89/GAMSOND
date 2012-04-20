@@ -1,0 +1,44 @@
+DIMENSIONS
+20 sommetsG2
+18 sommetsG1
+14 dem
+
+SOMMETS
+0  New-york  C  40.67  -73.94
+1  Los-angeles  C  34.11  -118.41
+2  Chicago  C  41.84  -87.68
+3  Houston  C  29.77  -95.39
+4  Philadelphia  C  40.01  -75.13
+5  Phoenix  C  33.54  -112.07
+6  San-diego  C  32.81  -117.14
+7  San-antonio  T  29.46  -98.51
+8  Dallas  C  32.79  -96.77
+9  Detroit  C  42.38  -83.1
+10  San-jose  C  37.3  -121.85
+11  Jacksonville  C  30.33  -81.66
+12  Indianapolis  C  39.78  -86.15
+13  San-francisco  C  37.77  -122.45
+14  Columbus  C  39.99  -82.99
+15  Austin  C  30.31  -97.75
+16  Memphis  T  35.11  -90.01
+17  Baltimore  C  39.3  -76.61
+18  Fort-worth  C  32.75  -97.34
+19  El-paso  C  31.85  -106.44
+
+DEMANDES
+0 1 ( 0 12 1 ) ( 0 14 5 1 )
+0 2 ( 0 4 2 ) ( 0 17 2 )
+0 3 ( 0 17 3 ) ( 0 4 3 )
+0 4 ( 0 17 14 4 ) ( 0 12 4 )
+0 9 ( 0 4 9 ) ( 0 12 9 )
+0 12 ( 0 14 12 ) ( 0 17 12 )
+0 14 ( 0 17 14 ) ( 0 2 14 )
+0 17 ( 0 14 17 ) ( 0 9 17 )
+1 5 ( 1 6 5 ) ( 1 10 5 )
+1 6 ( 1 13 6 ) ( 1 15 6 )
+1 10 ( 1 6 10 ) ( 1 19 10 )
+2 12 ( 2 9 12 ) ( 2 11 12 )
+3 8 ( 3 15 18 8 ) ( 3 12 8 )
+8 18 ( 8 19 18 ) ( 8 2 18 )
+
+EOF

@@ -198,5 +198,19 @@ public class Graph {
 			}
 		return tmp;
 	}
+	
+	public int countGraph1(ArrayList<Edge> arrEdge) {
+		int tmpInt = 0;
+		Edge tmpEdge;
+		
+		for (int i = 0; i < this.node; i++)
+			for (int j = i; j < this.node; j++)
+				if (this.graph1[i][j] == 1) {
+					tmpEdge = new Edge();
+					tmpInt++;
+					arrEdge.add(tmpEdge);
+				}
+		return tmpInt;
+	}
 }
 
