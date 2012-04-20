@@ -149,7 +149,7 @@ public class LocalSearch {
 		Graph lastGraph = new Graph();
 		Graph bestGraph = new Graph();
 		
-		lastGraph = search(g, g);
+		lastGraph = searchRandom(g, g);
 		arrGraph.add(lastGraph);
 		for (int i = 0; i < 10; i++) {
 			tmpGraph = searchRandom(lastGraph, g);
@@ -499,6 +499,8 @@ public class LocalSearch {
 		ArrayList<Integer> tmpArrInt = new ArrayList<Integer>();
 		Graph tmpG = new Graph();
 		int arrInt[], tmpInt = 0;
+		int arr[];
+		Path arrPath[];
 		
 		tmpG.copyGraph(tmpGraph);
 
@@ -555,10 +557,17 @@ public class LocalSearch {
 				}
 			}
 			
+			arr = new int[g.listReq[i].getWk().size() - 1];
+			disorder(arr);
+			arrPath = new Path[g.listReq[i].getWk().size() - 1];
+			for (int l = 0; l < arr.length; l++) {
+				int  j = arr[l];
+				arrPath[j] = Dijkstra(g.listReq[i].getWk().get(j), g.listReq[i].getWk().get(j+1), tmpG);
+			}
 			tmpArrInt = new ArrayList<Integer>();
 			tmpArrInt.add(g.listReq[i].s);
-			for (int j = 0; j < g.listReq[i].getWk().size() - 1; j++) {
-				tmpArrInt.addAll(Dijkstra1(g.listReq[i].getWk().get(j), g.listReq[i].getWk().get(j+1), tmpG).getPath());
+			for (int j = 0; j < arrPath.length; j++) {
+				tmpArrInt.addAll(arrPath[j].getPath());
 				tmpArrInt.add(g.listReq[i].getWk().get(j+1));
 			}
 			tmpG.listReq[i].wk.clear();
@@ -570,10 +579,17 @@ public class LocalSearch {
 				tmpG.graph[tmpG.listReq[i].getWk().get(j + 1)][tmpG.listReq[i].getWk().get(j)] = 0;
 			}
 			
+			arr = new int[g.listReq[i].getBk().size() - 1];
+			disorder(arr);
+			arrPath = new Path[g.listReq[i].getBk().size() - 1];
+			for (int l = 0; l < arr.length; l++) {
+				int  j = arr[l];
+				arrPath[j] = Dijkstra(g.listReq[i].getBk().get(j), g.listReq[i].getBk().get(j+1), tmpG);
+			}
 			tmpArrInt = new ArrayList<Integer>();
 			tmpArrInt.add(g.listReq[i].s);
-			for (int j = 0; j < g.listReq[i].getBk().size() - 1; j++) {
-				tmpArrInt.addAll(Dijkstra1(g.listReq[i].getBk().get(j), g.listReq[i].getBk().get(j+1), tmpG).getPath());
+			for (int j = 0; j < arrPath.length; j++) {
+				tmpArrInt.addAll(arrPath[j].getPath());
 				tmpArrInt.add(g.listReq[i].getBk().get(j+1));
 			}
 			tmpG.listReq[i].bk.clear();
@@ -586,5 +602,186 @@ public class LocalSearch {
 			}
 		}
 		return tmpG;
+	}
+	
+	public void disorder(int arr[]) {
+		int tmpInt;
+		Random tmpRan = new Random();
+		
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = i;
+		}
+		for (int k = 0; k < arr.length/2; k++) {
+			int i = (int)((arr.length - 1)*tmpRan.nextDouble());
+			int j = (int)((arr.length - 1)*tmpRan.nextDouble());
+			tmpInt = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmpInt;
+		}
+	}
+	
+	public double run2(Graph g) {
+		double tmpCost, tmpC;
+		double bestCost = 99999999999999.0;
+		Graph tmpGraph = new Graph();
+		Graph bestGraph = new Graph();
+		ArrayList<Graph> arrGraph = new ArrayList<Graph>();
+		
+		tmpGraph = searchRandom(g, g);
+		for (int i = 0; i < 10; i++) {
+			tmpGraph = searchRandom(tmpGraph, g);
+			tmpCost = tmpGraph.sumCost(tmpGraph, g);
+//			System.out.println(tmpGraph.sumCost(tmpGraph, g));
+			if (bestCost > tmpCost) {
+				bestCost = tmpCost;
+				bestGraph.copyGraph(tmpGraph);
+			}
+		}
+		arrGraph.add(bestGraph);
+		while (arrGraph.size() > 0) {
+			tmpGraph = new Graph();
+			tmpGraph.copyGraph(arrGraph.get(0));
+			tmpCost = tmpGraph.sumCost(tmpGraph, g);
+			arrGraph.remove(0);
+			for (int i = 0; i < tmpGraph.node; i++)
+				for (int j = i; j < tmpGraph.node; j++)
+					if (tmpGraph.graph1[i][j] == 1) {
+						Graph tmpG = new Graph();
+						tmpG = changGraph(tmpGraph, g, i, j);
+						tmpC = tmpG.sumCost(tmpG, g);
+						if (tmpC < tmpCost) {
+							arrGraph.add(tmpG);
+						}
+						if (tmpC < bestCost) {
+							bestCost = tmpC;
+							bestGraph.copyGraph(tmpG);
+						}
+					}
+		}
+		return bestCost;
+	}
+	
+	public Graph changGraph(Graph tmpG, Graph g, int a, int b) {
+		Graph tmpGraph = new Graph();
+		int req = 0, wk = 0, bk = 0;
+		
+		tmpGraph.copyGraph(tmpG);
+		
+		boolean flag = false;
+		for (int i = 0; i < tmpGraph.listReq.length; i++) {
+			for (int j = 0; j < tmpGraph.listReq[i].wk.size() - 1; j++)
+				if ((tmpGraph.listReq[i].wk.get(j).intValue() == a)&&(tmpGraph.listReq[i].wk.get(j+1).intValue() == b)
+			|| (tmpGraph.listReq[i].wk.get(j).intValue() == b)&&(tmpGraph.listReq[i].wk.get(j+1).intValue() == a)) {
+					wk = 1;
+					req = i;
+					flag = true;
+					break;
+				}
+			for (int j = 0; j < tmpGraph.listReq[i].bk.size() - 1; j++)
+				if ((tmpGraph.listReq[i].bk.get(j).intValue() == a)&&(tmpGraph.listReq[i].bk.get(j+1).intValue() == b)
+			|| (tmpGraph.listReq[i].bk.get(j).intValue() == b)&&(tmpGraph.listReq[i].bk.get(j+1).intValue() == a)) {
+					bk = 1;
+					req = i;
+					flag = true;
+					break;
+				}
+			if (flag)
+				break;
+		}
+		
+		if (wk == 1) {
+			tmpGraph.listNodeUsed.clear();
+			for (int j = 0; j < g.listReq[req].getWk().size(); j++) {
+				tmpGraph.listNodeUsed.add(g.listReq[req].wk.get(j));
+			}
+			for (int j = 1; j < tmpGraph.listReq[req].getBk().size() - 1; j++) {
+				tmpGraph.listNodeUsed.add(tmpGraph.listReq[req].bk.get(j));
+			}
+			
+			for (int j = 0; j < tmpGraph.listReq[req].getWk().size() - 1; j++) {
+				tmpGraph.graph1[tmpGraph.listReq[req].getWk().get(j)][tmpGraph.listReq[req].getWk().get(j + 1)] --;
+				tmpGraph.graph1[tmpGraph.listReq[req].getWk().get(j + 1)][tmpGraph.listReq[req].getWk().get(j)] --;
+				if (tmpGraph.graph1[tmpGraph.listReq[req].getWk().get(j)][tmpGraph.listReq[req].getWk().get(j + 1)] == 0) {
+					tmpGraph.graph[tmpGraph.listReq[req].getWk().get(j)][tmpGraph.listReq[req].getWk().get(j + 1)] =
+							g.graph[tmpGraph.listReq[req].getWk().get(j)][tmpGraph.listReq[req].getWk().get(j + 1)];
+					tmpGraph.graph[tmpGraph.listReq[req].getWk().get(j + 1)][tmpGraph.listReq[req].getWk().get(j)] =
+							g.graph[tmpGraph.listReq[req].getWk().get(j + 1)][tmpGraph.listReq[req].getWk().get(j)];
+				}
+			}
+			tmpGraph.graph[a][b] = 9999999999999999.0;
+			tmpGraph.graph[b][a] = 9999999999999999.0;
+
+			int arr[];
+			arr = new int[g.listReq[req].getWk().size() - 1];
+			disorder(arr);
+			Path arrPath[];
+			arrPath = new Path[g.listReq[req].getWk().size() - 1];
+			for (int l = 0; l < arr.length; l++) {
+				int  j = arr[l];
+				arrPath[j] = Dijkstra(g.listReq[req].getWk().get(j), g.listReq[req].getWk().get(j+1), tmpGraph);
+			}
+			ArrayList<Integer> tmpArrInt = new ArrayList<Integer>();
+			tmpArrInt.add(g.listReq[req].s);
+			for (int j = 0; j < arrPath.length; j++) {
+				tmpArrInt.addAll(arrPath[j].getPath());
+				tmpArrInt.add(g.listReq[req].getWk().get(j+1));
+			}
+			tmpGraph.listReq[req].wk.clear();
+			tmpGraph.listReq[req].wk.addAll(tmpArrInt);
+			for (int j = 0; j < tmpGraph.listReq[req].getWk().size() - 1; j++) {
+				tmpGraph.graph1[tmpGraph.listReq[req].getWk().get(j)][tmpGraph.listReq[req].getWk().get(j + 1)] ++;
+				tmpGraph.graph1[tmpGraph.listReq[req].getWk().get(j + 1)][tmpGraph.listReq[req].getWk().get(j)] ++;
+				tmpGraph.graph[tmpGraph.listReq[req].getWk().get(j)][tmpGraph.listReq[req].getWk().get(j + 1)] = 0;
+				tmpGraph.graph[tmpGraph.listReq[req].getWk().get(j + 1)][tmpGraph.listReq[req].getWk().get(j)] = 0;
+			}
+		}
+		
+		if (bk == 1) {
+			tmpGraph.listNodeUsed.clear();
+			for (int j = 0; j < g.listReq[req].getBk().size(); j++) {
+				tmpGraph.listNodeUsed.add(g.listReq[req].bk.get(j));
+			}
+			for (int j = 1; j < tmpGraph.listReq[req].getWk().size() - 1; j++) {
+				tmpGraph.listNodeUsed.add(tmpGraph.listReq[req].wk.get(j));
+			}
+			
+			for (int j = 0; j < tmpGraph.listReq[req].getBk().size() - 1; j++) {
+				tmpGraph.graph1[tmpGraph.listReq[req].getBk().get(j)][tmpGraph.listReq[req].getBk().get(j + 1)] --;
+				tmpGraph.graph1[tmpGraph.listReq[req].getBk().get(j + 1)][tmpGraph.listReq[req].getBk().get(j)] --;
+				if (tmpGraph.graph1[tmpGraph.listReq[req].getBk().get(j)][tmpGraph.listReq[req].getBk().get(j + 1)] == 0) {
+					tmpGraph.graph[tmpGraph.listReq[req].getBk().get(j)][tmpGraph.listReq[req].getBk().get(j + 1)] =
+							g.graph[tmpGraph.listReq[req].getBk().get(j)][tmpGraph.listReq[req].getBk().get(j + 1)];
+					tmpGraph.graph[tmpGraph.listReq[req].getBk().get(j + 1)][tmpGraph.listReq[req].getBk().get(j)] =
+							g.graph[tmpGraph.listReq[req].getBk().get(j + 1)][tmpGraph.listReq[req].getBk().get(j)];
+				}
+			}
+			tmpGraph.graph[a][b] = 9999999999999999.0;
+			tmpGraph.graph[b][a] = 9999999999999999.0;
+
+			int arr[];
+			arr = new int[g.listReq[req].getBk().size() - 1];
+			disorder(arr);
+			Path arrPath[];
+			arrPath = new Path[g.listReq[req].getBk().size() - 1];
+			for (int l = 0; l < arr.length; l++) {
+				int  j = arr[l];
+				arrPath[j] = Dijkstra(g.listReq[req].getBk().get(j), g.listReq[req].getBk().get(j+1), tmpGraph);
+			}
+			ArrayList<Integer> tmpArrInt = new ArrayList<Integer>();
+			tmpArrInt.add(g.listReq[req].s);
+			for (int j = 0; j < arrPath.length; j++) {
+				tmpArrInt.addAll(arrPath[j].getPath());
+				tmpArrInt.add(g.listReq[req].getBk().get(j+1));
+			}
+			tmpGraph.listReq[req].bk.clear();
+			tmpGraph.listReq[req].bk.addAll(tmpArrInt);
+			for (int j = 0; j < tmpGraph.listReq[req].getBk().size() - 1; j++) {
+				tmpGraph.graph1[tmpGraph.listReq[req].getBk().get(j)][tmpGraph.listReq[req].getBk().get(j + 1)] ++;
+				tmpGraph.graph1[tmpGraph.listReq[req].getBk().get(j + 1)][tmpGraph.listReq[req].getBk().get(j)] ++;
+				tmpGraph.graph[tmpGraph.listReq[req].getBk().get(j)][tmpGraph.listReq[req].getBk().get(j + 1)] = 0;
+				tmpGraph.graph[tmpGraph.listReq[req].getBk().get(j + 1)][tmpGraph.listReq[req].getBk().get(j)] = 0;
+			}
+		}
+		return tmpGraph;
 	}
 }

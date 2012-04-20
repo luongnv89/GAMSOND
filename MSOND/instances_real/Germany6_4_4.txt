@@ -1,0 +1,20 @@
+﻿DIMENSIONS
+6 sommetsG2
+4 sommetsG1
+4 dem
+
+SOMMETS
+0  Berlin  C  52.52  13.38
+1  Hamburg  C  53.55  10
+2  Munchen  T  48.14  11.58
+3  Koln  C  50.95  6.97
+4  Frankfurt  C  50.12  8.68
+5  Dortmund  T  51.51  7.48
+
+DEMANDES
+0 1 ( 0 1 ) ( 0 4 1 )
+0 3 ( 0 1 4 3 ) ( 0 3 )
+0 4 ( 0 3 4 ) ( 0 4 )
+1 3 ( 1 4 3 ) ( 1 3 )
+
+EOF
