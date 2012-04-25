@@ -167,14 +167,14 @@ public class Graph {
 			listReq[i] = new Request();
 			listReq[i].bk = new ArrayList<Integer>();
 			listReq[i].wk = new ArrayList<Integer>();
-/*			for (int j = 0; j < g.listReq[i].bk.size(); j++) {
-				Integer tmp = new Integer(g.listReq[i].bk.get(j).intValue());
-				listReq[i].bk.add(tmp);
-			}
-			for (int j = 0; j < g.listReq[i].wk.size(); j++) {
-				Integer tmp = new Integer(g.listReq[i].wk.get(j).intValue());
-				listReq[i].wk.add(tmp);
-			}*/
+			/*
+			 * for (int j = 0; j < g.listReq[i].bk.size(); j++) { Integer tmp =
+			 * new Integer(g.listReq[i].bk.get(j).intValue());
+			 * listReq[i].bk.add(tmp); } for (int j = 0; j <
+			 * g.listReq[i].wk.size(); j++) { Integer tmp = new
+			 * Integer(g.listReq[i].wk.get(j).intValue());
+			 * listReq[i].wk.add(tmp); }
+			 */
 			for (int j = 0; j < g.listReq[i].bk.size(); j++)
 				listReq[i].bk.add(g.listReq[i].bk.get(j));
 			for (int j = 0; j < g.listReq[i].wk.size(); j++)
