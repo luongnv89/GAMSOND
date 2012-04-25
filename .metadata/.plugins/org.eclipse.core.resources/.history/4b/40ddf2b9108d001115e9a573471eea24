@@ -1,0 +1,22 @@
+package com.gamsond02.object;
+
+import java.util.ArrayList;
+
+public class WorkingBackup {
+
+	private ArrayList<Gen> listGens;
+
+	public ArrayList<Gen> getListGens() {
+		return listGens;
+	}
+
+	public void setListGens(ArrayList<Gen> listGens) {
+		this.listGens = listGens;
+	}
+
+	public WorkingBackup(ArrayList<Gen> listGens) {
+		super();
+		this.listGens = listGens;
+	}
+
+}

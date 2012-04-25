@@ -1,0 +1,16 @@
+package com.test.ultility;
+
+import java.util.ArrayList;
+
+public class TestArrayList {
+	public static void main(String[] args) {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for (int i = 0; i < 5; i++) {
+			list.add(i);
+		}
+
+		list.set(0, list.get(3));
+		// list.add(1);
+		System.out.println("Completed!");
+	}
+}

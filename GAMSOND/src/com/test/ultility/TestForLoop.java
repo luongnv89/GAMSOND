@@ -1,0 +1,20 @@
+package com.test.ultility;
+
+public class TestForLoop {
+	public static void main(String[] args) {
+		findNumber();
+	}
+
+	public static boolean findNumber() {
+		boolean exist = false;
+		int i = 9;
+		for (int j = 0; j < 20; j++) {
+			if (i == j) {
+				exist = true;
+//				return exist;
+			}
+			System.out.println("Lan lap thu " + j);
+		}
+		return exist;
+	}
+}

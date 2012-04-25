@@ -1,0 +1,63 @@
+package com.test.ultility;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class TestSortArray {
+	public static void main(String[] args) {
+		ArrayList<Integer> newArrayList = new ArrayList<Integer>();
+		Random random = new Random();
+		for (int i = 0; i < 15; i++) {
+			int temp = random.nextInt(50);
+			newArrayList.add(temp);
+		}
+
+		ArrayList<Integer> arraySorted = sortArray(newArrayList);
+		System.out.println("Mang ban dau: ");
+		show(newArrayList);
+
+		System.out.println("Mang sau khi sap xep: ");
+		show(arraySorted);
+	}
+
+	public static ArrayList<Integer> sortArray(ArrayList<Integer> array) {
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		temp.addAll(array);
+		ArrayList<Integer> maxArray = new ArrayList<Integer>();
+		ArrayList<Integer> minArray = new ArrayList<Integer>();
+		ArrayList<Integer> arraySorted = new ArrayList<Integer>();
+		int maxid = 0;
+		int minid = 0;
+		int min = temp.get(minid);
+		int max = temp.get(maxid);
+		while (temp.size() != 0) {
+			for (int i = 0; i < temp.size(); i++) {
+				if (max <= temp.get(i)) {
+					maxid = i;
+					max = temp.get(maxid);
+				} else if (min > temp.get(i)) {
+					minid = i;
+					min = temp.get(minid);
+				}
+			}
+
+			minArray.add(temp.get(minid));
+			array.remove(temp.get(minid));
+			maxArray.add(temp.get(maxid));
+			array.remove(temp.get(maxid));
+		}
+
+		arraySorted.addAll(maxArray);
+		for (int i = minArray.size() - 1; i >= 0; i++) {
+			arraySorted.add(minArray.get(i));
+		}
+		return arraySorted;
+	}
+
+	public static void show(ArrayList<Integer> array) {
+		System.out.println("Cac phan tu cua mang");
+		for (int i = 0; i < array.size(); i++) {
+			System.out.print(array.get(i) + " ");
+		}
+	}
+}

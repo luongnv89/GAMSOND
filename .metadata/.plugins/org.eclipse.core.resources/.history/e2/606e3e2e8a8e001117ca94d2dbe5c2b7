@@ -1,0 +1,1112 @@
+package com.gamsond02.process;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Random;
+
+import com.gamsond02.object.Connection;
+import com.gamsond02.object.Edge;
+import com.gamsond02.object.Gen;
+import com.gamsond02.object.Individual;
+import com.gamsond02.object.Node;
+import com.gamsond02.object.Population;
+import com.gamsond02.object.Request;
+import com.gamsond02.object.WorkingBackup;
+
+public class Gamsond02 {
+
+	// Khai bao cac thong so bai toan
+	static int noRequest = 0;// So request cua bai toan
+	static int noNode = 0;// So nut trong bai toan
+	static int noEdge = 0;// So canh cua do thi
+	static int noNode2 = 0;// So nut tren do thi logical
+	static double bestCost = 0;// Chi phi nho nhat
+
+	static ArrayList<Node> listNode = new ArrayList<Node>();
+	// Danh sach dinh cua do thi
+	static ArrayList<Request> listRequest = new ArrayList<Request>();
+	// Danh sach cac request cua bai toan
+	static ArrayList<Edge> listEdges = new ArrayList<Edge>();
+	// Danh sach canh cua do thi
+	static ArrayList<Connection> listConnections = new ArrayList<Connection>();
+	// Danh sach cac connection
+	static ArrayList<Individual> listTotalIndividuals = new ArrayList<Individual>();
+	static int noTotalIndividual = 0; // Tong so co ca the sinh ra cua bai toan
+	static Individual bestIndividual;// Ca the tot nhat cua bai toan
+	static int noGen = 0;// Tong so gen cua bai toan
+
+	public static void main(String args[]) {
+		double fitnessAll = Double.POSITIVE_INFINITY;
+		double fitnessSum = 0;
+		long timeAll = 0;
+		long timeSum = 0;
+		// long t1, t2 = 0;
+		FileOutputStream result; // declare a file output object
+		PrintStream p; // declare a print stream object
+
+		// TODO DOC DU LIEU DAU VAO
+		// String url = Config.DATAFILE;
+		File dataInput = new File("data");
+
+		for (int noData = 0; noData < dataInput.listFiles().length; noData++) {
+			System.out.println();
+			String url = dataInput.listFiles()[noData].toString().replace("\\",
+					"/");
+			System.out.println("Data in put: " + url);
+			// Reset cac thong so doc duoc tu moi bo du lieu
+			noRequest = 0;// So request cua bai toan
+			noNode = 0;// So nut trong bai toan
+			noEdge = 0;// So canh cua do thi
+			noNode2 = 0;// So nut tren do thi logical
+			listNode = new ArrayList<Node>();
+			// Danh sach dinh cua do thi
+			listRequest = new ArrayList<Request>();
+			// Danh sach cac request cua bai toan
+			listEdges = new ArrayList<Edge>();
+			System.out.println("Doc du lieu dau vao....");
+			readData(url);
+			System.out.println("Hoan thanh doc du lieu dau vao!");
+			String fileOuputall = "result_" + "gamsond02_" + noNode + "_"
+					+ noNode2 + "_" + noRequest + "_all" + ".html";
+			try {
+				// Create a new file output stream
+				// connected to "myfile.txt"
+				result = new FileOutputStream(fileOuputall);
+				// Connect print stream to the output stream
+				p = new PrintStream(result);
+				p.println("<html><title>Result</title><body>");
+				p.println("Input: <p>");
+				p.println("<p> Number of Physical Node: " + noNode);
+				p.println("<p> Number of Logical Node: " + noNode2);
+				p.println("<p> Number of Request: " + noRequest);
+				p.println("<p> Enviroment: " + Config.MYLAPTOP);
+				p.println("<p> GA config:");
+				p.println("<p> Number of Individual in population: "
+						+ Config.POPULATION);
+				p.println("<p> Number of Generation: " + Config.GENERATION);
+				p.println("<p> Number of Cross: " + Config.NOCROSS);
+				p.println("<p> Number of Mutant 1 point: " + Config.NOMUTANT);
+				// p.println("<p> Number of Mutant 2 point: " +
+				// Config.NOMUTANT2);
+				// p.println(Config.DATAFILE);
+				p.println("<table><tr><td><center>Order</center></td><td><center> Best Cost</center></td><td><center>Times</center></td></tr>");
+				p.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			// Bat dau thuc hien giai thuat di truyen
+			for (int noGenerator = 0; noGenerator < Config.NOGENERATION; noGenerator++) {
+
+				// Cac thong so khac biet cua moi lan chay test
+				listConnections = new ArrayList<Connection>();
+				// Danh sach cac connection
+				listTotalIndividuals = new ArrayList<Individual>();
+				noTotalIndividual = 0; // Tong so co ca the sinh ra cua bai toan
+				bestIndividual = null;// Ca the tot nhat cua bai toan
+				noGen = 0;// Tong so gen cua bai toan
+				bestCost = 0;// Chi phi nho nhat
+
+				String fileOuput = "result_" + "gamsond02_" + noNode + "_"
+						+ noNode2 + "_" + noRequest + "_" + noGenerator
+						+ ".html";
+
+
+				// TODO KHOI TAO CAC CONNECTION
+				System.out.println("Khoi tao cac connection....");
+				for (int noConnect = 0; noConnect < noRequest; noConnect++) {
+					Request request = listRequest.get(noConnect);
+					Connection newConnection = createConnection(listNode,
+							request);
+					listConnections.add(newConnection);
+				}
+				System.out.println("Hoan thanh khoi tao cac connection!");
+				long t1 = System.currentTimeMillis();
+				// TODO KHOI TAO QUAN THE BAN DAU
+				System.out.println("Khoi tao quan the........");
+				Population population = initPopulation();
+				bestIndividual = population.getBestIndividual();
+				bestCost = bestIndividual.getFitness();
+				System.out.println("Hoan thanh khoi tao quan the!");
+				// Ghi thong tin cau hinh cua bai toan
+				try {
+					// Create a new file output stream
+					// connected to "myfile.txt"
+					result = new FileOutputStream(fileOuput);
+					// Connect print stream to the output stream
+					p = new PrintStream(result);
+					p.println("<html><title>Result</title><body>");
+					p.println("Input:");
+					p.println("<p> Number of Physical Node: " + noNode);
+					p.println("<p> Number of Logical Node: " + noNode2);
+					p.println("<p> Number of Request: " + noRequest);
+					p.println("<p> Enviroment: " + Config.MYLAPTOP);
+					p.println("<p> GA config:");
+					p.println("<p> Number of Individual in population: "
+							+ Config.POPULATION);
+					p.println("<p> Number of Generation: " + Config.GENERATION);
+					p.println("<p> Number of Cross: " + Config.NOCROSS);
+					p.println("<p> Number of Mutant 1 point: "
+							+ Config.NOMUTANT);
+					// p.println("<p> Number of Mutant 2 point: " +
+					// Config.NOMUTANT2);
+					p.println("<table><tr><td><center>no Generation</center></td><td><center> BestCost</center></td>");
+					p.println("<tr><td>" + population.getpopulationID()
+							+ "</td><td>" + bestCost + "</td></tr>");
+					p.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				System.out.println("Hoan thanh khoi tao quan the");
+
+				// TODO SINH QUAN THE MOI
+				System.out.println("Bat dau thuc hien sinh cac ca the moi");
+				for (int noGeneration = 0; noGeneration < Config.GENERATION; noGeneration++) {
+
+					ArrayList<Individual> listNewIndividuals = new ArrayList<Individual>();
+
+					// TODO THUC HIEN LAI GHEP
+
+					for (int i = 0; i < Config.NOCROSS; i++) {
+						Individual crossMiddleCut = null;
+						boolean existIndi = true;
+						Random randomCross = new Random();
+						while (existIndi == true) {
+
+							// Chon ngau nhien 1 ca the lam cha 1
+							int pa1 = randomCross.nextInt(population
+									.getListIndividual().size());
+
+							// Chon ngau nhien 1 ca the lam cha 2
+							int pa2 = randomCross.nextInt(population
+									.getListIndividual().size());
+
+							// Kiem tra neu cha 2 bang cha 1 thi sinh lai cha 2
+							while (pa2 == pa1) {
+								pa2 = randomCross.nextInt(population
+										.getListIndividual().size());
+							}
+
+							// Sinh 1 ca the moi
+							crossMiddleCut = crossTwoIndividual(population
+									.getListIndividual().get(pa1), population
+									.getListIndividual().get(pa2));
+							// Kiem tra su trung lap cua ca the vua sinh ra
+							existIndi = existIndividualInArray(
+									listTotalIndividuals, crossMiddleCut);
+							if (existIndi == false) {
+								calculateFitnessIndividual(crossMiddleCut);
+							}
+						}
+
+						// System.out.println("Sinh(Lai ghep) duoc thang thu " +
+						// i);
+						listNewIndividuals.add(crossMiddleCut);
+						listTotalIndividuals.add(crossMiddleCut);
+						noTotalIndividual++;
+					}
+
+					// TODO THUC HIEN DOT BIEN 1 GEN
+
+					for (int i = 0; i < Config.NOMUTANT; i++) {
+
+						// Chon ngau nhien 1 ca the de dot bien tu tap ca the
+						// cua
+						// quan
+						// the
+						Individual mutantIndividual = null;
+						boolean existIndi = true;
+						// int g=0;
+						Random randomMutant = new Random();
+						while (existIndi == true) {
+
+							// g++;
+							// System.out.println("while mutant " + g);
+							// Chon ngau nhien 1 ca the de dot bien
+							int idMutant = randomMutant.nextInt(population
+									.getListIndividual().size());
+
+							// Sinh ca the moi
+							mutantIndividual = mutantedIndividual(population
+									.getListIndividual().get(idMutant));
+
+							// Kiem tra tinh trung lap
+							existIndi = existIndividualInArray(
+									listTotalIndividuals, mutantIndividual);
+							if (existIndi == false) {
+								calculateFitnessIndividual(mutantIndividual);
+							}
+						}
+
+						// Them ca the vua dot bien vao danh sach cac ca the da
+						// dot
+						// bien
+						// System.out.println("Dot bien duoc thang thu " + i);
+						listNewIndividuals.add(mutantIndividual);
+						listTotalIndividuals.add(mutantIndividual);
+						noTotalIndividual++;
+					}
+
+					// TODO THUC HIEN DOT BIEN 2 GEN
+
+					// for (int i = 0; i < Config.NOMUTANT2; i++) {
+					//
+					// // Chon ngau nhien 1 ca the de dot bien tu tap ca the cua
+					// // quan
+					// // the
+					// Individual mutantIndividual = null;
+					// boolean existIndi = true;
+					// // int g=0;
+					// Random randomMutant = new Random();
+					// while (existIndi == true) {
+					//
+					// // Chon ngau nhien 1 ca the de dot bien
+					// int idMutant = randomMutant.nextInt(population
+					// .getListIndividual().size());
+					//
+					// // Sinh ca the moi
+					// mutantIndividual = multiMutantIndividual(population
+					// .getListIndividual().get(idMutant));
+					//
+					// // Kiem tra tinh trung lap
+					// existIndi = existIndividualInArray(
+					// listTotalIndividuals, mutantIndividual);
+					// if (existIndi == false) {
+					// calculateFitnessIndividual(mutantIndividual);
+					// }
+					// }
+					//
+					// // Them ca the vua dot bien vao danh sach cac ca the da
+					// dot
+					// // bien
+					// // System.out.println("Dot bien duoc thang thu " + i);
+					// listNewIndividuals.add(mutantIndividual);
+					// listTotalIndividuals.add(mutantIndividual);
+					// noTotalIndividual++;
+					// }
+					// TODO DAU TRANH SINH TON
+					// Chon chien luoc giu lai cac ca the uu tu
+
+					Population population2 = newPopulation(population,
+							listNewIndividuals);
+
+					// Cap nhat ca the tot nhat va gia tri tot nhat cua bai toan
+					Individual tempBestIndividual = population2
+							.getBestIndividual();
+					if (tempBestIndividual.getFitness() < bestCost) {
+						bestIndividual = tempBestIndividual;
+						bestCost = tempBestIndividual.getFitness();
+					}
+					population = population2;
+					// System.out.println("Hoan thanh sinh quan the moi thu "
+					// + (noGeneration + 1));
+
+					// Ghi ket qua ra file thong ke
+					try {
+						result = new FileOutputStream(fileOuput, true);
+						// Connect print stream to the output stream
+						p = new PrintStream(result);
+						// Ghi du lieu ket qua ra file
+						p.print("<tr><td>" + population.getpopulationID()
+								+ "</td><td>" + bestCost + "</td></tr>");
+						// p.print(population.getpopulationID() + " " + bestCost
+						// +
+						// ";");
+						p.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				long t2 = System.currentTimeMillis();
+				System.out.println("Ket thuc the he thu " + noGenerator);
+
+				// Danh dau thoi gian ket thuc chuong trinh, va tinh thoi gian
+				// chay
+				// THoi gian chay cua the he nay
+				long timeRun = t2 - t1;
+				// Tong thoi gian cac the he
+				timeSum = timeSum + timeRun;
+				// timeAll = (long) ((long) timeSum / 1000.0);
+				// Tong do fitness
+				fitnessSum = fitnessSum + bestCost;
+				// Ghi ket qua tot nhat cua bai toan
+				try {
+					// Create a new file output stream
+					// connected to "myfile.txt"
+					result = new FileOutputStream(fileOuput, true);
+					// Connect print stream to the output stream
+					p = new PrintStream(result);
+					p.println(bestCost);
+					p.println("</table></body></html>");
+					// Ghi du lieu ket qua ra file
+					p.println(timeRun);
+					p.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// Tinh thoi gian trung binh
+				timeAll = (long) ((long) timeSum / 1000.0 * Config.NOGENERATION);
+				// Tinh gia tri trung binh
+				fitnessAll = (double) ((double) fitnessSum / 1.0 * Config.NOGENERATION);
+				try {
+					// Create a new file output stream
+					// connected to "myfile.txt"
+					result = new FileOutputStream(fileOuputall, true);
+					// Connect print stream to the output stream
+					p = new PrintStream(result);
+					// p.println(bestCost);
+					// p.println("</table></body><html>");
+					// Ghi du lieu ket qua ra file
+					p.println("<tr><td>" + noGenerator + "</td><td>"
+							+ fitnessAll + "</td><td>" + timeAll + "</td></tr>");
+					p.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			// timeAll = (long) ((long) timeSum / (long) Config.NOGENERATION);
+
+			try {
+				// Create a new file output stream
+				// connected to "myfile.txt"
+				result = new FileOutputStream(fileOuputall, true);
+				// Connect print stream to the output stream
+				p = new PrintStream(result);
+				// p.println(bestCost);
+				p.println("</table></body></html>");
+				// Ghi du lieu ket qua ra file
+				// p.println(timeAll);
+				p.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println("Done!");
+		}
+	}
+
+	// Thuc hien dot bien 1 ca the
+	// Thuc hien phep dot bien
+	public static Individual mutantedIndividual(Individual indiv) {
+		// Random vi tri gen dot bien
+		int id = noTotalIndividual + 1;
+		double fitness = Double.POSITIVE_INFINITY;
+
+		Random random1 = new Random();
+		int mutantPosition = random1.nextInt(noRequest);
+		WorkingBackup newWorkingBackup = listConnections.get(mutantPosition)
+				.genWorkingBackup();
+		ArrayList<WorkingBackup> newListWorkingBackups = new ArrayList<WorkingBackup>();
+		for (int i = 0; i < mutantPosition; i++) {
+			newListWorkingBackups.add(indiv.getListWorkingBackup().get(i));
+		}
+		newListWorkingBackups.add(newWorkingBackup);
+		for (int i = mutantPosition + 1; i < noRequest; i++) {
+			newListWorkingBackups.add(indiv.getListWorkingBackup().get(i));
+		}
+		Individual newIndividual = new Individual(id, fitness,
+				newListWorkingBackups);
+		return newIndividual;
+	}
+
+	// Sinh ca the moi
+
+	// Thuc hien dau tranh sinh ton de tao quan the moi
+	public static Population newPopulation(Population population,
+			ArrayList<Individual> listNewIndividuals) {
+		// Tao 1 mang thong nhat cac NST
+		ArrayList<Individual> listTotal = new ArrayList<Individual>();
+		listTotal.addAll(population.getListIndividual());
+		listTotal.addAll(listNewIndividuals);
+
+		// Thuc hien viec sap xep cac ca the trong mang theo thu tu giam dan cua
+		// do fitness
+		ArrayList<Individual> listTotalSorted = sortedPopulation(listTotal);
+
+		// Loai bo so ca the dung bang so ca the moi duoc sinh ra
+		for (int x = 0; x < listNewIndividuals.size(); x++) {
+			listTotalSorted.remove(listTotalSorted.get(0));
+		}
+
+		// Khoi tao 1 quan the moi
+		Population tempPopulation = new Population(
+				population.getpopulationID() + 1, listTotalSorted);
+		return tempPopulation;
+		// Collections.sort(listFitness);
+	}
+
+	// Sap xep cac ca the trong quan the theo thu tu giam dan cua do fitness
+
+	// Sap xep cac ca the trong NST theo do fitness
+	public static ArrayList<Individual> sortedPopulation(
+			ArrayList<Individual> listTotal) {
+		// ArrayList<Integer> tem2 = list;
+
+		ArrayList<Individual> listIndividualSorted = new ArrayList<Individual>();
+		while (listTotal.size() > 0) {
+			// Gia tri cao nhat cua do fitness trong quan the
+			double max = listTotal.get(0).getFitness();
+			// Chi so cua ca the co do fitness cao nhat
+			int maxid = 0;
+
+			// Tim ca the co do fitness cao nhat
+			for (int i = 0; i < listTotal.size(); i++) {
+
+				if (max < listTotal.get(i).getFitness()) {
+					max = listTotal.get(i).getFitness();
+					maxid = i;
+				}
+
+			}
+
+			// Them ca the co do fitness cao nhat vao quan the moi
+			listIndividualSorted.add(listTotal.get(maxid));
+			// Loai bo quan the vua tim duoc khoi quan the ban dau
+			listTotal.remove(maxid);
+			// tem2 = selectSort();
+		}
+		return listIndividualSorted;
+	}
+
+	// Ham lai ghep 1 diem cat cho 2 ca the ngau nhien cua quan the
+
+	// Thuc hien viec lai ghep 2 ca the
+	public static Individual crossTwoIndividual(Individual pa1, Individual pa2) {
+
+		int id = noTotalIndividual + 1;
+		// Khoi tao do fitness cua ca the ban dau
+		double fitness = Double.POSITIVE_INFINITY;
+		ArrayList<WorkingBackup> newListWorkingBackup = new ArrayList<WorkingBackup>();
+
+		Random cuRandom = new Random();
+		// Vi tri diem cat ngau nhien: 1-> noRequest-1
+		int cutPosition = cuRandom.nextInt(noRequest);
+		if (cutPosition == 0)
+			cutPosition = cutPosition + 1;
+		if (cutPosition == noRequest - 1)
+			cutPosition = cutPosition - 1;
+
+		for (int i = 0; i <= cutPosition; i++) {
+			newListWorkingBackup.add(pa1.getListWorkingBackup().get(i));
+		}
+
+		for (int i = cutPosition + 1; i < noRequest; i++) {
+			newListWorkingBackup.add(pa2.getListWorkingBackup().get(i));
+		}
+		Individual newIndividual = new Individual(id, fitness,
+				newListWorkingBackup);
+		return newIndividual;
+	}
+
+	// TODO Khoi tao quan the
+
+	// Khoi tao quan the ban dau
+	public static Population initPopulation() {
+		ArrayList<Individual> listIndividual = new ArrayList<Individual>();
+		for (int j = 0; j < Config.POPULATION; j++) {
+			Individual tempIndividual = null;
+			boolean existIndi = true;
+			while (existIndi == true) {
+				// Tao 1 ca the moi
+				tempIndividual = createIndividualunFitness(listConnections);
+				// Kiem tra su ton tai cua ca the trong cac ca the da tao ra
+				existIndi = existIndividualInArray(listTotalIndividuals,
+						tempIndividual);
+				if (existIndi == false) {
+					// Neu la ca the moi thi tinh do fitness
+					calculateFitnessIndividual(tempIndividual);
+				}
+			}
+			// Nap ca the moi tao ra vao list ca the cua quan the
+			listIndividual.add(tempIndividual);
+			// Nap ca the moi tao vao tap cac ca the cua bai toan sinh ra
+			listTotalIndividuals.add(tempIndividual);
+			noTotalIndividual++;
+		}
+
+		// Tao 1 quan the moi
+		Population population = new Population(0, listIndividual);
+		// Danh dau so luong ca the duoc sinh ra cua bai toan
+		// noTotalIndividual = listIndividual.size();
+		return population;
+	}
+
+	// Tinh do fitness cua 1 ca the
+
+	// Tinh do fitness cua ca the
+	public static void calculateFitnessIndividual(Individual indiv) {
+		double fitness = 0;
+		// Lay ra list cac canh su dung trong NST
+		ArrayList<Edge> listUsedEdge = listEdgesInIndividual(indiv);
+		// Tinh tong trong so cua ca the
+		for (int k = 0; k < listUsedEdge.size(); k++) {
+			double tempFitness = listUsedEdge.get(k).getWeight();
+			fitness = tempFitness + fitness;
+		}
+		// Cap nhat gia tri fitness cho ca the
+		indiv.setFitness(fitness);
+	}
+
+	// Doc du lieu dau vao khoi tao: Node, Edge, Request, Graph
+
+	// Doc du lieu dau vao
+	public static void readData(String url) {
+		// url: duong dan toi du lieu
+		File file = new File(url);
+		// Bat dau doc du lieu
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(file));
+
+			String s = in.readLine();// DIMENSIONS
+
+			s = in.readLine();// 6 sommetsG2
+			noNode = Integer.parseInt(s.split(" ")[0]);
+
+			s = in.readLine();// 4 sommetsG1
+			noNode2 = Integer.parseInt(s.split(" ")[0]);
+
+			s = in.readLine();// 2 dem
+			noRequest = Integer.parseInt(s.split(" ")[0]);
+
+			s = in.readLine();// space
+
+			s = in.readLine();// SOMMETS
+
+			// TODO KHOI TAO CAC NODE
+			int idNode;
+			String nameNode;
+			boolean isLogical;
+			int x;
+			int y;
+			for (int i = 0; i < noNode; i++) {
+				s = in.readLine();// 0 N0 C 288 149
+				Node newNode;
+				idNode = Integer.parseInt(s.split(" ")[0]);
+				// String tmp[] = s.split(" ");
+				nameNode = s.split(" ")[2];
+				if (s.split(" ")[4].equals("T"))
+					isLogical = false;
+				else
+					isLogical = true;
+				x = Integer.parseInt(s.split(" ")[6]);
+				y = Integer.parseInt(s.split(" ")[8]);
+
+				// Add Node into list
+				newNode = new Node(x, y, idNode, nameNode, isLogical);
+				listNode.add(newNode);
+			}
+
+			s = in.readLine(); // space
+			s = in.readLine(); // DEMANDES
+
+			// TODO KHOI TAO CAC REQUEST
+			int idoNode;
+			Node oNode;
+			int iddNode;
+			Node dNode;
+
+			for (int i = 0; i < noRequest; i++) {
+
+				ArrayList<Node> path1 = new ArrayList<Node>();
+				ArrayList<Node> path2 = new ArrayList<Node>();
+
+				s = in.readLine();
+				// 4 1 ( 4 1 ) ( 4 3 1 )
+				// oNode
+				idoNode = Integer.parseInt(s.split(" ")[0]);
+				oNode = listNode.get(idoNode);
+				// dNode
+				iddNode = Integer.parseInt(s.split(" ")[1]);
+				dNode = listNode.get(iddNode);
+				// PATH1: working path
+				String workingpath = s.split("\\(")[1];
+				// 4 1 )
+
+				String[] tempPath1;
+				tempPath1 = workingpath.split(" ");
+				// -4-1-)
+				int idNode2;
+				for (int j = 1; j < tempPath1.length - 1; j++) {
+					idNode2 = Integer.parseInt(tempPath1[j]);
+					path1.add(listNode.get(idNode2));
+				}
+
+				String backupPath = s.split("\\(")[2];
+				String[] tempPath2;
+				tempPath2 = backupPath.split(" ");
+				for (int j = 1; j < tempPath2.length - 1; j++) {
+					idNode2 = Integer.parseInt(tempPath2[j]);
+					path2.add(listNode.get(idNode2));
+				}
+
+				// Add request into list
+				Request request = new Request(i, oNode, dNode, path1, path2);
+				listRequest.add(request);
+			}
+
+			// //TODO KHOI TAO CAC CANH
+			boolean used = false;
+			double weight;
+			for (int i = 0; i < listNode.size(); i++) {
+				for (int j = i + 1; j < listNode.size(); j++) {
+
+					// Xac dinh 2 dau mut cua canh
+					Node aNode = listNode.get(i);
+					Node bNode = listNode.get(j);
+					int x1 = listNode.get(i).getX();
+					int y1 = listNode.get(i).getY();
+					int x2 = listNode.get(j).getX();
+					int y2 = listNode.get(j).getY();
+					double tempWeight = (x1 - x2) * (x1 - x2) + (y1 - y2)
+							* (y1 - y2);
+					// Tinh trong so cua canh
+					weight = Math.sqrt(tempWeight);
+					Edge tempEdge = new Edge(aNode, bNode, used, weight);
+					listEdges.add(tempEdge);
+				}
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+
+	// Ham tim duong di giua 2 duong tren do thi
+	// Tim duong di giua 2 node
+	public static ArrayList<Node> findPathTwoNode(
+			ArrayList<Node> listRemainNode, Node a, Node b) {
+		ArrayList<Node> foundPath = new ArrayList<Node>();
+		// Lay ngau nhien 1 mang cac node trong listRemainNode de cho vao giua 2
+		// node tao thanh duong di
+		foundPath = randomArrayNodeFromListNode(listRemainNode);
+		return foundPath;
+	}
+
+	// Random 1 node trong 1 danh sach cac node. Co the tra ve null
+
+	// Lay 1 Node ngau nhien trong mang cac Node
+	public static Node randomNodeFromArray(ArrayList<Node> listRemainNode) {
+		// TODO Auto-generated method stub
+		Random randomdd = new Random();
+		Node randomNode;
+		// Random chi so Node se lay ngau nhien trong mang cac Node
+		int randomID = randomdd.nextInt(listRemainNode.size());
+		randomNode = listRemainNode.get(randomID);
+		return randomNode;
+	}
+
+	// Tim duong di qua nhieu nut trong do thi
+
+	// Khoi tao gen
+	public static ArrayList<Node> createGen(ArrayList<Node> listNode,
+			ArrayList<Node> listRequiredNodes) {
+
+		// multiPath là duong di tong hop tu cac duong di giua 2 dinh
+		ArrayList<Node> multiPath = new ArrayList<Node>();
+		ArrayList<Node> PathTwoNode = new ArrayList<Node>();
+		ArrayList<Node> listRemain = new ArrayList<Node>();
+		listRemain.addAll(listNode);
+		// Loai bo cac node tren path
+		listRemain.removeAll(listRequiredNodes);
+
+		for (int i = 0; i < listRequiredNodes.size() - 1; i++) {
+			PathTwoNode = findPathTwoNode(listRemain, listRequiredNodes.get(i),
+					listRequiredNodes.get(i + 1));
+			// PathTwoNode.remove(listRequiredNodes.get(i + 1));
+			multiPath.add(listRequiredNodes.get(i));
+			if (PathTwoNode != null) {
+				multiPath.addAll(PathTwoNode);
+				// PathTwoNode.remove(listRequiredNodes.get(i));
+				listRemain.removeAll(PathTwoNode);
+			}
+		}
+		multiPath.add(listRequiredNodes.get(listRequiredNodes.size() - 1));
+		return multiPath;
+	}
+
+	// Tim 1 tap duong di qua 1 tap cac nut trong do thi
+
+	// Khoi tao mang gen
+	public static ArrayList<Gen> createArrayGen(ArrayList<Node> listRemainNode,
+			ArrayList<Node> listRequiredNode) {
+
+		ArrayList<Gen> newMultiPath = new ArrayList<Gen>();
+
+		int count = 0;
+		int countGen = 0;
+		// Viec tim duong se dung lai khi tim thay 10 duong , hoac duong tim
+		// duoc bi lap lai 10 lan
+		while ((count < 10) && (countGen < 20)) {
+			ArrayList<Node> foundPathMultiNode = createGen(listRemainNode,
+					listRequiredNode);
+			// Kiem tra tinh lap lai cua duong tim duoc
+			if (findGenInArrayGen(newMultiPath, foundPathMultiNode) == true) {
+				count++;
+			} else {
+				// Tao 1 gen moi
+				Gen newGen = new Gen(noGen, foundPathMultiNode);
+				newMultiPath.add(newGen);
+				noGen++;
+				countGen++;
+			}
+		}
+
+		return newMultiPath;
+	}
+
+	// Kiem tra su ton tai cua Gen trong mang Gen da co
+
+	public static boolean findGenInArrayGen(ArrayList<Gen> newMultiPath,
+			ArrayList<Node> newGen) {
+		// TODO Auto-generated method stub
+		boolean existGen = false;
+		for (int i = 0; i < newMultiPath.size(); i++) {
+			if (compareGen(newMultiPath.get(i).getGenNode(), newGen) == true) {
+				existGen = true;
+				return existGen;
+			}
+		}
+		return existGen;
+	}
+
+	// So sanh 2 mang Gen voi nhau
+
+	public static boolean compareGen(ArrayList<Node> gen, ArrayList<Node> newGen) {
+		// TODO Auto-generated method stub
+		boolean isEqual = true;
+		for (int i = 0; i < gen.size(); i++) {
+			if (gen.size() != newGen.size()) {
+				isEqual = false;
+				return isEqual;
+			} else if (gen.get(i) != newGen.get(i)) {
+				isEqual = false;
+				return isEqual;
+			}
+		}
+		return isEqual;
+	}
+
+	// Khoi tao 1 connection cua bai toan: gom co 1 tap cac duong working , voi
+	// moi duong working se co 1 tap cac duong backup tuong ung
+	// Khoi tao connection
+	public static Connection createConnection(ArrayList<Node> listTotalNode,
+			Request request) {
+		// Cac thong so khoi tao
+		int requestID = request.getId();
+		ArrayList<Gen> workingSetConnection = new ArrayList<Gen>();
+		ArrayList<ArrayList<Gen>> backupSetConnection = new ArrayList<ArrayList<Gen>>();
+
+		// TODO KHOI TAO CAC GEN CHO NST WORKING
+
+		// Xac dinh tap cac node co the co trong duong di working
+		ArrayList<Node> listNodeRemain = new ArrayList<Node>();
+		listNodeRemain.addAll(listTotalNode);
+		// Loai bo cac node tren duong path 1 khoi tap node cua do thi
+		// listNodeRemain.removeAll(request.getPath1());
+		// Loai bo cac node tren duong path 2 khoi tap node cua do thi
+		listNodeRemain.removeAll(request.getPath2());
+		listNodeRemain.add(request.getoNode());
+		listNodeRemain.add(request.getdNode());
+
+		// Tim tap duong di working
+		workingSetConnection = createArrayGen(listNodeRemain,
+				request.getPath1());
+		for (int i = 0; i < workingSetConnection.size(); i++) {
+			ArrayList<Gen> backupConnection2 = new ArrayList<Gen>();
+
+			// Xac dinh tap cac node co the co trong duong di backup
+			ArrayList<Node> listNodeRemainBackup = new ArrayList<Node>();
+			// Do tat ca cac canh cua do thi vao
+			listNodeRemainBackup.addAll(listTotalNode);
+			// Lay danh sach cac node giua cua working path
+			ArrayList<Node> listNodeMiddleWorking = new ArrayList<Node>();
+			listNodeMiddleWorking.addAll(workingSetConnection.get(i)
+					.getGenNode());
+			// Loai bo Node cuoi cung tren duong working
+			listNodeMiddleWorking.remove(listNodeMiddleWorking
+					.get(listNodeMiddleWorking.size() - 1));
+			// Loai bo Node dau tien tren duong working
+			listNodeMiddleWorking.remove(listNodeMiddleWorking.get(0));
+			// Loai bo cac node da su dung tren duong working khoi danh sach cac
+			// node
+			listNodeRemainBackup.removeAll(listNodeMiddleWorking);
+
+			// Tim tap duong di backup tuong ung voi duong di working thu i
+			backupConnection2 = createArrayGen(listNodeRemainBackup,
+					request.getPath2());
+			backupSetConnection.add(backupConnection2);
+		}
+
+		// Tao 1 connection
+		Connection newConnection = new Connection(requestID,
+				workingSetConnection, backupSetConnection);
+
+		return newConnection;
+
+	}
+
+	// Tim 1 canh co 2 node a va b
+
+	// Tim canh co 2 node a va b
+	public static Edge getEdgeFromListEdge(Node a, Node b) {
+		Edge newEdgeOK = null;
+
+		for (int i = 0; i < listEdges.size(); i++) {
+			Edge newEdge = listEdges.get(i);
+			if (((newEdge.getaNode() == a) && (newEdge.getbNode() == b))
+					|| ((newEdge.getaNode() == b) && (newEdge.getbNode() == a))) {
+				newEdgeOK = newEdge;
+			}
+		}
+		return newEdgeOK;
+	}
+
+	// Khoi tao 1 ca the
+
+	// Tao 1 Ca the
+	public static Individual createIndividualunFitness(
+			ArrayList<Connection> listConnections) {
+		int id = noTotalIndividual + 1;
+		double fitness = Double.POSITIVE_INFINITY;
+		ArrayList<WorkingBackup> listWorkingBackups = new ArrayList<WorkingBackup>();
+		for (int i = 0; i < noRequest; i++) {
+			WorkingBackup newWorkingBackup = listConnections.get(i)
+					.genWorkingBackup();
+			listWorkingBackups.add(newWorkingBackup);
+		}
+		Individual newIndividual = new Individual(id, fitness,
+				listWorkingBackups);
+		return newIndividual;
+	}
+
+	// lay 1 gen ngau nhien trong listGen
+
+	public static Gen getRandomGen(ArrayList<Gen> listGen) {
+		Random random3 = new Random();
+		int idGen = random3.nextInt(listGen.size());
+		Gen newGen = listGen.get(idGen);
+		return newGen;
+	}
+
+	// Lay danh sach canh su dung trong 1 gen
+	public static ArrayList<Edge> listEdgesInGen(Gen gen) {
+		ArrayList<Edge> listEdge = new ArrayList<Edge>();
+		for (int i = 0; i < gen.getGenNode().size() - 1; i++) {
+			Edge aEdge = getEdgeFromListEdge(gen.getGenNode().get(i), gen
+					.getGenNode().get(i + 1));
+			listEdge.add(aEdge);
+		}
+		return listEdge;
+	}
+
+	// Lay danh sach cac canh su dung trong listGen
+	public static ArrayList<Edge> listEdgesInArrayGen(ArrayList<Gen> listGen) {
+		ArrayList<Edge> listEdgeTotal = new ArrayList<Edge>();
+		for (int i = 0; i < listGen.size(); i++) {
+			ArrayList<Edge> aArrayEdges = listEdgesInGen(listGen.get(i));
+			listEdgeTotal = composeArrayEdges(listEdgeTotal, aArrayEdges);
+		}
+		return listEdgeTotal;
+	}
+
+	// Tim danh sach canh cua 1 ca the
+	public static ArrayList<Edge> listEdgesInIndividual(Individual individual) {
+
+		ArrayList<Edge> listEdgesIndividual = new ArrayList<Edge>();
+		for (int i = 0; i < noRequest; i++) {
+			ArrayList<Edge> listEdgeWorkingBackup = new ArrayList<Edge>();
+			listEdgeWorkingBackup = listEdgeWorkingBackup(individual
+					.getListWorkingBackup().get(i));
+			listEdgesIndividual = composeArrayEdges(listEdgesIndividual,
+					listEdgeWorkingBackup);
+		}
+
+		return listEdgesIndividual;
+	}
+
+	public static ArrayList<Edge> listEdgeWorkingBackup(
+			WorkingBackup workingBackup) {
+		ArrayList<Edge> listEdgeInWorkingGen = listEdgesInGen(workingBackup
+				.getWorkingGen());
+		ArrayList<Edge> listEdgeInBackupGen = listEdgesInGen(workingBackup
+				.getBackupGen());
+		// TODO Auto-generated method stub
+		ArrayList<Edge> newlistEdge = composeArrayEdges(listEdgeInWorkingGen,
+				listEdgeInBackupGen);
+		return newlistEdge;
+	}
+
+	// Tong hop 2 list canh, tra ve 1 list canh chua cac canh duy nhat
+	public static ArrayList<Edge> composeArrayEdges(ArrayList<Edge> listEdge1,
+			ArrayList<Edge> listEdge2) {
+		ArrayList<Edge> listCompose = new ArrayList<Edge>();
+		listCompose.addAll(listEdge1);
+		for (int i = 0; i < listEdge2.size(); i++) {
+			if (findEdgeInArray(listEdge1, listEdge2.get(i)) == false) {
+				listCompose.add(listEdge2.get(i));
+			}
+		}
+		return listCompose;
+	}
+
+	// Kiem tra su ton tai cua 1 canh trong mot list canh da co
+	public static boolean findEdgeInArray(ArrayList<Edge> listEdge, Edge edge) {
+		boolean existEdge = false;
+		for (int i = 0; i < listEdge.size(); i++) {
+			if (compareEdge(listEdge.get(i), edge) == true) {
+				existEdge = true;
+				return existEdge;
+			}
+		}
+		return existEdge;
+	}
+
+	// So sanh 2 canh
+	public static boolean compareEdge(Edge edge1, Edge edge2) {
+		boolean onEdge = false;
+		if (((edge1.getaNode() == edge2.getaNode()) && (edge1.getbNode() == edge2
+				.getbNode()))
+				|| ((edge1.getaNode() == edge2.getbNode()) && (edge1.getbNode() == edge2
+						.getaNode())))
+			onEdge = true;
+		return onEdge;
+	}
+
+	// Lay ngau nhien 1 so nguyen trong mang cho truoc
+	public static int RandomIntArray(ArrayList<Integer> array) {
+		Random randomNew = new Random();
+		int idRandom = randomNew.nextInt(array.size());
+		int temp = array.get(idRandom);
+		array.remove(array.get(idRandom));
+		return temp;
+	}
+
+	// Lay ngau nhien 1 gen trong list gen
+	public static Gen RandomGenFromArrayGen(ArrayList<Gen> listGen) {
+		Random randomPosition = new Random();
+		int position = randomPosition.nextInt(listGen.size());
+		Gen tempGen = listGen.get(position);
+		return tempGen;
+	}
+
+	// Lay ngau nhien 1 gen trong listGen
+	public static Gen RandomGenFromArrayGen1(ArrayList<Gen> listGen, Gen gen) {
+		ArrayList<Gen> listGenTemp = new ArrayList<Gen>();
+		listGenTemp.addAll(listGen);
+		listGenTemp.remove(gen);
+		Gen temp = RandomGenFromArrayGen(listGenTemp);
+		return temp;
+	}
+
+	// Lay chi so cua gen trong mang Gen
+	public static int getIndexGenInArrayGen(ArrayList<Gen> listGen, Gen gen) {
+		int position = 0;
+		for (int i = 0; i < listGen.size(); i++) {
+			if (gen.getId() == listGen.get(i).getId()) {
+				position = i;
+				return position;
+			}
+		}
+		return position;
+	}
+
+	// So sanh 2 ca the
+	public static boolean compareIndividual(Individual a, Individual b) {
+		boolean isEqual = true;
+		for (int i = 0; i < noRequest; i++) {
+			// Voi moi request
+			if (comparedWorkingBackup(a.getListWorkingBackup().get(i), b
+					.getListWorkingBackup().get(i)) == false) {
+				isEqual = false;
+				return isEqual;
+			}
+		}
+		return isEqual;
+	}
+
+	public static boolean comparedWorkingBackup(WorkingBackup workingBackup,
+			WorkingBackup workingBackup2) {
+
+		boolean isEqual = true;
+		if (compareGen(workingBackup.getWorkingGen().getGenNode(),
+				workingBackup2.getWorkingGen().getGenNode()) == false) {
+			isEqual = false;
+			return isEqual;
+		} else if (compareGen(workingBackup.getBackupGen().getGenNode(),
+				workingBackup2.getBackupGen().getGenNode())) {
+			isEqual = false;
+			return isEqual;
+		}
+		// TODO Auto-generated method stub
+		return isEqual;
+	}
+
+	// Kiem tra su lap lai cua ca the moi sinh ra
+	public static boolean existIndividualInArray(
+			ArrayList<Individual> listTotalIndividuals, Individual individual) {
+		boolean existIndi = false;
+		for (int i = 0; i < noTotalIndividual; i++) {
+			if (compareIndividual(individual, listTotalIndividuals.get(i)) == true) {
+				existIndi = true;
+				return existIndi;
+			}
+		}
+		return existIndi;
+	}
+
+	public static ArrayList<Node> randomArrayNodeFromListNode(
+			ArrayList<Node> listNode) {
+		ArrayList<Node> newArrayNode = new ArrayList<Node>();
+		Random randomD = new Random();
+		// Sinh ngau nhien so node cua mang
+		int noNodeOfArray = randomD.nextInt(listNode.size());
+		if (noNodeOfArray == 0)
+			// Neu so ngau nhien bang 0, tra lai mot mang rong
+			newArrayNode = null;
+		else {
+			for (int i = 0; i < noNodeOfArray; i++) {
+				// Lay ngau nhien 1 node trong listNode
+				Node temp = randomNodeFromArray(listNode);
+				// Them vao mang node moi
+				newArrayNode.add(temp);
+				// Loai bo khoi tap listNode
+				listNode.remove(temp);
+			}
+		}
+		return newArrayNode;
+
+	}
+
+	// public static Individual multiMutantIndividual(Individual indiv) {
+	// // Random vi tri gen dot bien
+	// int id = noTotalIndividual + 1;
+	// double fitness = Double.POSITIVE_INFINITY;
+	// Individual newIndividual = new Individual(id, fitness,
+	// indiv.getListWorkingBackup());
+	//
+	// Random random1 = new Random();
+	//
+	// // Vi tri dot bien thu nhat
+	// int mutantPosition = random1.nextInt(noRequest);
+	// WorkingBackup newWorkingBackup = listConnections.get(mutantPosition)
+	// .genWorkingBackup();
+	// newIndividual.getListWorkingBackup().set(mutantPosition,
+	// newWorkingBackup);
+	//
+	// // Vi tri dot bien thu hai
+	// int mutantPosition2 = random1.nextInt(noRequest);
+	// // Kiem tra su trung lap vi tri dot bien
+	// while (mutantPosition2 == mutantPosition) {
+	// mutantPosition2 = random1.nextInt(noRequest);
+	// }
+	// WorkingBackup newWorkingBackup2 = listConnections.get(mutantPosition2)
+	// .genWorkingBackup();
+	// newIndividual.getListWorkingBackup().set(mutantPosition2,
+	// newWorkingBackup2);
+	// return newIndividual;
+	// }
+}

@@ -1,0 +1,8 @@
+6
+ID Name isLogical x y
+0 N0 true 288 149
+1 N1 true 288 129
+2 N2 false 270 133
+3 N3 true 256 141
+4 N4 true 256 157
+5 N5 false 246 157

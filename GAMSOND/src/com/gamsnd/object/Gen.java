@@ -7,32 +7,29 @@ import java.util.ArrayList;
  * 
  * */
 public class Gen {
-	private int id;	//id of path 
-//	private int requestID;
-	private ArrayList<Edge> listEdge;
+	private int id;
+	private ArrayList<Node> genNode;
+
 	public int getId() {
-		return id; 
+		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-//	public int getRequestID() {
-//		return requestID;
-//	}
-//	public void setRequestID(int requestID) {
-//		this.requestID = requestID;
-//	}
-	public ArrayList<Edge> getListEdge() {
-		return listEdge;
+
+	public ArrayList<Node> getGenNode() {
+		return genNode;
 	}
-	public void setListEdge(ArrayList<Edge> listEdge) {
-		this.listEdge = listEdge;
+
+	public void setGenNode(ArrayList<Node> genNode) {
+		this.genNode = genNode;
 	}
-	public Gen(int id, ArrayList<Edge> listEdge) {
+
+	public Gen(int id, ArrayList<Node> genNode) {
 		super();
 		this.id = id;
-//		this.requestID = requestID;
-		this.listEdge = listEdge;
+		this.genNode = genNode;
 	}
-		
+
 }

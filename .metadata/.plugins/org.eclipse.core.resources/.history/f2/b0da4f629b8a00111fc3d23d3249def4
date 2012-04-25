@@ -1,0 +1,19 @@
+package com.test.ultility;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import com.gamsnd.process.RandomInteger;
+
+public class TestRandomClass {
+	public static void main(String[] args){
+		ArrayList<Integer> array = new ArrayList<Integer>();
+		RandomInteger test = new RandomInteger(16, array);
+		int x = test.RandomGenerator2();
+		System.out.println(x);
+		array.add(x);
+		RandomInteger test2 = new RandomInteger(16, array);
+		int x2 = test.RandomGenerator2();
+		System.out.println(x2);
+	}
+}	

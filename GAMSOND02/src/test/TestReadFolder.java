@@ -1,0 +1,16 @@
+package test;
+
+import java.io.File;
+
+public class TestReadFolder {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		File  vidu = new File("data");
+		System.out.println(vidu.listFiles()[0].toString().replace("\\", "/"));
+	}
+
+}

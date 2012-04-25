@@ -1,0 +1,13 @@
+<html><title>Result</title><body>
+Input:
+Number of Physical Node: 0
+Number of Logical Node: 0
+Number of Request: 0
+Enviroment: HP540, RAM 2G, Intel Core 2 dual 1.8Ghz, no Card Video
+GA config:
+Number of Individual in population: 300
+Number of Generation: 300
+Number of Cross: 100
+Number of Mutant 1 point: 100
+Number of Mutant 2 point: 100
+<table><tr><td><center>Order</center></td><td><center> Best Cost</center></td><td><center>Times</center></td></tr>

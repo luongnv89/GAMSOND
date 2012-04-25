@@ -1,0 +1,21 @@
+212.11312478481707
+com.gamsnd.object.Node@1b67f74 com.gamsnd.object.Node@69b332
+Working: 
+[com.gamsnd.object.Node@1b67f74, com.gamsnd.object.Node@173a10f, com.gamsnd.object.Node@69b332]
+Backup: 
+[com.gamsnd.object.Node@1b67f74, com.gamsnd.object.Node@530daa, com.gamsnd.object.Node@173a10f, com.gamsnd.object.Node@69b332]
+com.gamsnd.object.Node@530daa com.gamsnd.object.Node@1b67f74
+Working: 
+[com.gamsnd.object.Node@530daa, com.gamsnd.object.Node@69b332, com.gamsnd.object.Node@1b67f74]
+Backup: 
+[com.gamsnd.object.Node@530daa, com.gamsnd.object.Node@173a10f, com.gamsnd.object.Node@a62fc3, com.gamsnd.object.Node@1b67f74]
+com.gamsnd.object.Node@530daa com.gamsnd.object.Node@a62fc3
+Working: 
+[com.gamsnd.object.Node@530daa, com.gamsnd.object.Node@1b67f74, com.gamsnd.object.Node@a62fc3]
+Backup: 
+[com.gamsnd.object.Node@530daa, com.gamsnd.object.Node@1b67f74, com.gamsnd.object.Node@69b332, com.gamsnd.object.Node@173a10f, com.gamsnd.object.Node@a62fc3]
+com.gamsnd.object.Node@a62fc3 com.gamsnd.object.Node@1b67f74
+Working: 
+[com.gamsnd.object.Node@a62fc3, com.gamsnd.object.Node@173a10f, com.gamsnd.object.Node@1b67f74]
+Backup: 
+[com.gamsnd.object.Node@a62fc3, com.gamsnd.object.Node@173a10f, com.gamsnd.object.Node@69b332, com.gamsnd.object.Node@530daa, com.gamsnd.object.Node@1b67f74]

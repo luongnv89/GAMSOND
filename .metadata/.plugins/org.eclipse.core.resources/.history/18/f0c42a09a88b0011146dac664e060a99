@@ -1,0 +1,31 @@
+package com.test.ultility;
+
+import java.util.ArrayList;
+
+public class TestSortArray {
+	public static void main(String[] args){
+		
+	}
+	
+	public static ArrayList<Integer> sortArray(ArrayList<Integer> array){
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		temp.addAll(array);
+		ArrayList<Integer> maxArray = new ArrayList<Integer>();
+		int maxid = 0;
+		int minid = 0;
+		int min = temp.get(minid);
+		int max = temp.get(maxid);
+		ArrayList<Integer> minArray = new ArrayList<Integer>();
+		for(int i=0;i<temp.size();i++){
+			if(maxid<=temp.get(i))
+			{
+				maxid = i;
+				max = temp.get(maxid);
+			}
+			else if(min>temp.get(i)){
+				minid = i;
+				min = temp.get(minid);
+			}
+		}
+	}
+}
