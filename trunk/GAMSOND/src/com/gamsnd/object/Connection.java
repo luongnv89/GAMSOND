@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Connection {
 	private int requestID;
-	private ArrayList<Gen> wConnection;
-	private ArrayList<ArrayList<Gen>> bConnection;
+	private ArrayList<Gen> workingSetConnection;
+	private ArrayList<ArrayList<Gen>> backupSetConnection;
 
 	public int getRequestID() {
 		return requestID;
@@ -15,28 +15,29 @@ public class Connection {
 		this.requestID = requestID;
 	}
 
-	public ArrayList<Gen> getwConnection() {
-		return wConnection;
+	public ArrayList<Gen> getWorkingSetConnection() {
+		return workingSetConnection;
 	}
 
-	public void setwConnection(ArrayList<Gen> wConnection) {
-		this.wConnection = wConnection;
+	public void setWorkingSetConnection(ArrayList<Gen> workingSetConnection) {
+		this.workingSetConnection = workingSetConnection;
 	}
 
-	public ArrayList<ArrayList<Gen>> getbConnection() {
-		return bConnection;
+	public ArrayList<ArrayList<Gen>> getBackupSetConnection() {
+		return backupSetConnection;
 	}
 
-	public void setbConnection(ArrayList<ArrayList<Gen>> bConnection) {
-		this.bConnection = bConnection;
+	public void setBackupSetConnection(
+			ArrayList<ArrayList<Gen>> backupSetConnection) {
+		this.backupSetConnection = backupSetConnection;
 	}
 
-	public Connection(int requestID, ArrayList<Gen> wConnection,
-			ArrayList<ArrayList<Gen>> bConnection) {
+	public Connection(int requestID, ArrayList<Gen> workingSetConnection,
+			ArrayList<ArrayList<Gen>> backupSetConnection) {
 		super();
 		this.requestID = requestID;
-		this.wConnection = wConnection;
-		this.bConnection = bConnection;
+		this.workingSetConnection = workingSetConnection;
+		this.backupSetConnection = backupSetConnection;
 	}
 
 }

@@ -1,0 +1,43 @@
+package com.gamsond02.object;
+
+import java.util.ArrayList;
+
+public class Connection {
+	private int requestID;
+	private ArrayList<Gen> workingSetConnection;
+	private ArrayList<ArrayList<Gen>> backupSetConnection;
+
+	public int getRequestID() {
+		return requestID;
+	}
+
+	public void setRequestID(int requestID) {
+		this.requestID = requestID;
+	}
+
+	public ArrayList<Gen> getWorkingSetConnection() {
+		return workingSetConnection;
+	}
+
+	public void setWorkingSetConnection(ArrayList<Gen> workingSetConnection) {
+		this.workingSetConnection = workingSetConnection;
+	}
+
+	public ArrayList<ArrayList<Gen>> getBackupSetConnection() {
+		return backupSetConnection;
+	}
+
+	public void setBackupSetConnection(
+			ArrayList<ArrayList<Gen>> backupSetConnection) {
+		this.backupSetConnection = backupSetConnection;
+	}
+
+	public Connection(int requestID, ArrayList<Gen> workingSetConnection,
+			ArrayList<ArrayList<Gen>> backupSetConnection) {
+		super();
+		this.requestID = requestID;
+		this.workingSetConnection = workingSetConnection;
+		this.backupSetConnection = backupSetConnection;
+	}
+
+}

@@ -1,0 +1,40 @@
+package com.gamsond02.object;
+
+public class Edge {
+	private Node aNode;
+	private Node bNode;
+	private boolean used; 
+	private double weight;
+	public Node getaNode() {
+		return aNode;
+	}
+	public void setaNode(Node aNode) {
+		this.aNode = aNode;
+	}
+	public Node getbNode() {
+		return bNode;
+	}
+	public void setbNode(Node bNode) {
+		this.bNode = bNode;
+	}
+	public boolean isUsed() {
+		return used;
+	}
+	public void setUsed(boolean used) {
+		this.used = used;
+	}
+	public double getWeight() {
+		return weight;
+	}
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+	public Edge(Node aNode, Node bNode, boolean used, double weight) {
+		super();
+		this.aNode = aNode;
+		this.bNode = bNode;
+		this.used = used;
+		this.weight = weight;
+	}
+
+}

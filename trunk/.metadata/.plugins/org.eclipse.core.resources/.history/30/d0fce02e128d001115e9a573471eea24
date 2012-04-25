@@ -1,0 +1,11 @@
+package com.gamsond02.object;
+
+import java.util.ArrayList;
+
+public class Individual {
+	private int ID;
+	private double fitness;
+	ArrayList<WorkingBackup> listWorkingBackup;
+	
+	
+}

@@ -1,0 +1,10 @@
+package com.gamsond02.object;
+
+import java.util.ArrayList;
+
+public class WorkingBackup {
+
+	private Gen workingGen;
+	private Gen backupGen;
+
+}

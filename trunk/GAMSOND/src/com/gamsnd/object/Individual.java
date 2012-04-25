@@ -3,8 +3,8 @@ package com.gamsnd.object;
 public class Individual {
 	private int ID;
 	private double fitness;
-	private Chromosome wChromosome;
-	private Chromosome bChromosome;
+	private Chromosome workingChromosome;
+	private Chromosome backupChromosome;
 
 	public int getID() {
 		return ID;
@@ -19,31 +19,32 @@ public class Individual {
 	}
 
 	public void setFitness(double fitness) {
-
 		this.fitness = fitness;
 	}
 
-	public Chromosome getwChromosome() {
-		return wChromosome;
+	public Chromosome getWorkingChromosome() {
+		return workingChromosome;
 	}
 
-	public void setwChromosome(Chromosome wChromosome) {
-		this.wChromosome = wChromosome;
+	public void setWorkingChromosome(Chromosome workingChromosome) {
+		this.workingChromosome = workingChromosome;
 	}
 
-	public Chromosome getbChromosome() {
-		return bChromosome;
+	public Chromosome getBackupChromosome() {
+		return backupChromosome;
 	}
 
-	public void setbChromosome(Chromosome bChromosome) {
-		this.bChromosome = bChromosome;
+	public void setBackupChromosome(Chromosome backupChromosome) {
+		this.backupChromosome = backupChromosome;
 	}
 
-	public Individual(int iD, Chromosome wChromosome, Chromosome bChromosome) {
+	public Individual(int iD, double fitness, Chromosome workingChromosome,
+			Chromosome backupChromosome) {
 		super();
 		ID = iD;
-		this.wChromosome = wChromosome;
-		this.bChromosome = bChromosome;
+		this.fitness = fitness;
+		this.workingChromosome = workingChromosome;
+		this.backupChromosome = backupChromosome;
 	}
 
 }
