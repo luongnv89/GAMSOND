@@ -166,22 +166,32 @@ public class LocalSearch {
 		return tmpG;
 	}
 
-	public double run(Graph g) {
+	public Graph run(Graph g) {
 		ArrayList<Graph> arrGraph = new ArrayList<Graph>();
 		double tmpCost = 99999999999999.0;
+		double lastCost = tmpCost;
+		double bestCost = lastCost;
 		Graph tmpGraph = new Graph();
 		Graph lastGraph = new Graph();
 		Graph bestGraph = new Graph();
 
 		lastGraph = searchRandom(g, g);
 		arrGraph.add(lastGraph);
+		lastCost = lastGraph.sumCost(lastGraph, g);
+		bestGraph.copyGraph(lastGraph);
+		bestCost = lastCost;
 		for (int i = 0; i < 10; i++) {
 			tmpGraph = searchRandom(lastGraph, g);
+			tmpCost = tmpGraph.sumCost(tmpGraph, g);
 			// System.out.println(tmpGraph.sumCost(tmpGraph, g));
-			if (tmpGraph.sumCost(tmpGraph, g) < tmpCost) {
-				tmpCost = tmpGraph.sumCost(tmpGraph, g);
-				arrGraph.add(tmpGraph);
+			if (tmpCost < bestCost) {
+				bestCost = tmpCost;
 				bestGraph.copyGraph(tmpGraph);
+			}
+			if (tmpCost < lastCost) {
+				lastCost = tmpCost;
+				arrGraph.add(tmpGraph);
+				lastGraph.copyGraph(tmpGraph);
 			} else {
 				if (!arrGraph.isEmpty()) {
 					lastGraph = new Graph();
@@ -189,11 +199,12 @@ public class LocalSearch {
 					arrGraph.remove(arrGraph.size() - 1);
 					changeGraph(lastGraph, g);
 				} else {
-					// break;
+					lastGraph.copyGraph(bestGraph);
 				}
 			}
 		}
-		return tmpCost;
+		bestGraph.cost = bestCost;
+		return bestGraph;
 	}
 
 	public void changeGraph(Graph tmpG, Graph g) {
@@ -307,7 +318,7 @@ public class LocalSearch {
 		k[s] = 1;
 		k[t] = 0;
 		for (int i = 0; i < tmpG.node; i++) {
-			max = MAX;
+			max = 0;
 			for (int j = 0; j < tmpG.node; j++) {
 				if ((k[j] == 0) && (dist[j] > max)) {
 					max = dist[j];
@@ -909,36 +920,21 @@ public class LocalSearch {
 
 	public double run3(Graph g) {
 		Random ran = new Random();
-		Graph tmpGraph = new Graph();
 		Graph bestGraph = new Graph();
-		Graph tmpG = new Graph();
 		Graph lastGraph = new Graph();
 		double bestCost = 9999999999999999.0;
-		double tmpCost = 0;
+		double lastCost = 0;
 
-		tmpGraph.copyGraph(g);
 		bestGraph.copyGraph(g);
 		for (int i = 0; i < 100000; i++) {
-			int n = tmpGraph.listReq.length / 2;
+			int n = g.listReq.length / 2;
+			lastGraph.copyGraph(bestGraph);
 			for (int j = 0; j < n; j++) {
-				tmpGraph.copyGraph(bestGraph);
 				int req = (int) ((g.listReq.length - 1) * ran.nextDouble());
-				tmpCost = changeReq(tmpGraph, req, g);
-				if (tmpCost < bestCost) {
-					bestCost = tmpCost;
-					System.out.println(bestCost);
-					bestGraph.copyGraph(tmpGraph);
-				}
-				else
-					continue;
-			}
-			tmpG.copyGraph(bestGraph);
-			for (int j = 0; j < 2; j++) {
-				tmpG = searchRandom(tmpG, g);
-				tmpCost = tmpG.sumCost(tmpG, g);
-				if (tmpCost < bestCost) {
-					bestCost = tmpCost;
-					bestGraph.copyGraph(tmpG);
+				lastCost = changeReq(lastGraph, req, g);
+				if (lastCost < bestCost) {
+					bestCost = lastCost;
+					bestGraph.copyGraph(lastGraph);
 				}
 			}
 		}
@@ -1357,4 +1353,29 @@ public class LocalSearch {
 		}
 	}
 
+	public double run4(Graph g) {
+		Random ran = new Random();
+		Graph bestGraph = new Graph();
+		Graph lastGraph = new Graph();
+		double bestCost = 9999999999999999.0;
+		double lastCost = 0;
+
+		bestGraph = run(g);
+		for (int i = 0; i < 10000; i++) {
+			int n = g.listReq.length / 2;
+			lastGraph.copyGraph(bestGraph);
+			for (int j = 0; j < n; j++) {
+				int req = (int) ((g.listReq.length - 1) * ran.nextDouble());
+				lastCost = changeReq(lastGraph, req, g);
+				if (lastCost < bestCost) {
+					bestCost = lastCost;
+					bestGraph.copyGraph(lastGraph);
+				}
+			}
+		}
+		lastGraph.copyGraph(bestGraph);
+		bestGraph = run(lastGraph);
+		bestGraph.cost = bestGraph.sumCost(bestGraph, g);
+		return bestGraph.cost;
+	}
 }
