@@ -13,6 +13,7 @@ public class Graph {
 	double listNode[][];
 	ArrayList<Integer> listNodeUsed = new ArrayList<Integer>();
 	ArrayList<Integer> listEdge = new ArrayList<Integer>();
+	double cost;
 	
 	public Graph() {
 		
